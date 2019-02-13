@@ -3,11 +3,49 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ffahey <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/02/13 16:42:14 by ffahey            #+#    #+#              #
-#    Updated: 2019/02/13 16:42:17 by ffahey           ###   ########.fr        #
+#    Created: 2019/02/13 16:56:21 by marvin            #+#    #+#              #
+#    Updated: 2019/02/13 16:57:25 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = asm
 
+vpath %.c srcs
+vpath %.h includes
+vpath %.o bin
+
+FLAGS = -Wall -Wextra -Werror
+
+OBJ = $(addprefix bin/,$(notdir $(patsubst %.c,%.o,$(wildcard srcs/*.c))))
+
+HEADERS = $(wildcard includes/*.h)
+
+LIB = ../libft/libft.a
+
+all: makedir make_lib $(NAME)
+
+makedir:
+	@mkdir -p bin
+
+make_lib:
+	make -C ../libft/
+
+$(NAME): $(OBJ) $(LIB)
+	gcc $(FLAGS) $^ -o $@ -Iincludes -Ilibft -Llibft -lft
+
+bin/%.o: %.c $(HEADERS)
+	gcc $(FLAGS) -c $< -o $@ -Iincludes -Ilibft
+
+clean:
+	rm -rf bin/
+	rm -rf ../libft/*.o
+
+fclean: clean
+	rm -f $(NAME)
+	rm -f $(LIB)
+
+re: fclean all
+
+.PHONY: all clean fclean re make_lib
