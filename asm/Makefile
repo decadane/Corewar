@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:56:21 by marvin            #+#    #+#              #
-#    Updated: 2019/02/13 16:57:25 by marvin           ###   ########.fr        #
+#    Updated: 2019/02/13 18:05:29 by ffahey           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ make_lib:
 	make -C ../libft/
 
 $(NAME): $(OBJ) $(LIB)
-	gcc $(FLAGS) $^ -o $@ -Iincludes -Ilibft -Llibft -lft
+	gcc $(FLAGS) $^ -o $@ -Iincludes -Ilibft -L../libft -lft
 
 bin/%.o: %.c $(HEADERS)
-	gcc $(FLAGS) -c $< -o $@ -Iincludes -Ilibft
+	gcc $(FLAGS) -c $< -o $@ -Iincludes -I../libft
 
 clean:
 	rm -rf bin/
