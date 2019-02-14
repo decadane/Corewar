@@ -6,13 +6,13 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/13 21:25:21 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 14:03:48 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_player	*welcome_champions(int ac, char **av, int *dump)
+t_player	*welcome_champions(int ac, char **av, int *dump, int *num)
 {
 	int			id;
 	t_player	**res;
@@ -26,18 +26,17 @@ t_player	*welcome_champions(int ac, char **av, int *dump)
 	while (ac--)
 	{
 		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
-			if (!read_opt(av, dump, &id))
+			if (!read_opt(av, dump, &id) && free_players(res))
 				return(0);
 		else
 		{
-			if (!read_champion(*av, res, &id) && free_players(res))
+			if (!read_champion(*av, res, &id, *num) && free_players(res))
 				return (0);
-
+			(*num)++;
 		}
 		av++;
 	}
-
-
+	return (res);
 }
 
 static int  print_usage(void)
@@ -49,12 +48,16 @@ static int  print_usage(void)
 int         main(int ac, char **av)
 {
 	t_player	*players;
+	int			num_of_pl;
 	int			dump;
 
 	if (ac == 1)
 		return (print_usage());
-	if (!(players = welcome_champions(--ac, ++av, &dump)))
+	num_of_pl = 0;
+	if (!(players = welcome_champions(--ac, ++av, &dump, &num_of_pl)))
 		return (1);
+	if (!num_of_pl && free_players(players))
+		return (print_usage());
 	
 
 

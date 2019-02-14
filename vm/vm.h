@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/13 22:04:40 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:49:55 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_player
 	short			id;
 	char			name[PROG_NAME_LENGTH + 1];
 	char			comment[COMMENT_LENGTH + 1];
-	char			code[CHAMP_MAX_SIZE - ];
+	char			code[CHAMP_MAX_SIZE];
 	char			prog_size;
 }				t_player;
 
@@ -56,7 +56,7 @@ typedef struct	s_vm
 
 
 int		read_opt(char **av, int *dump, int *id);
-int		read_champion(char *av, t_player **player, int *id);
+int		read_champion(char *av, t_player **player, int *id, int num);
 
 int		error(char *str, char *param);
 int		error2(char *str, char *param, char *str2);
