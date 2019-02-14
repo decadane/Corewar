@@ -6,18 +6,11 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:00 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/13 21:36:47 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:44:20 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-int		from_16(char a)
-{
-
-
-
-}
 
 int		error(char *str, char *param)
 {

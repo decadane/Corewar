@@ -6,11 +6,32 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 15:30:50 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:11:28 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	change_endian(void *a, int size)
+{
+	int				i;
+	unsigned long	b;
+	unsigned char	*src;
+	unsigned char	*dest;
+
+	b = 0;
+	i = 0;
+	src = (unsigned char*)a + size - 1;
+	dest = (unsigned char*)&b;
+	while (i < size)
+	{
+		*(dest + i) = *(src - i);
+		i++;
+	}
+	src = (unsigned char*)a;
+	while (size--)
+		src[size] = dest[size];
+}
 
 int		read_opt(char **av, int *dump, int *id)
 {
@@ -18,7 +39,7 @@ int		read_opt(char **av, int *dump, int *id)
 	{
 		av++;
 		*id = ft_atoi(*av);
-		if (id <= 0 || id > MAX_PLAYERS || **av < '0' || **av > '9')
+		if (*id <= 0 || *id > MAX_PLAYERS || **av < '0' || **av > '9')
 			return (error("Error: invalid champion's number", 0));
 	}
 	else
@@ -31,32 +52,32 @@ int		read_opt(char **av, int *dump, int *id)
 	return (1);
 }
 
-
-int		read_champion_header(char *av, t_player *player, int fd)
+int		read_champion_header(char *av, t_player **player, int fd)
 {
-	char	magic[4];
+	unsigned int	magic;
 
-	read(fd, magic, 4);
-	if ((int)magic != COREWAR_EXEC_MAGIC)
-		return(error2("Error: File ", *av, " has an invalid header"));
-	player = (t_player*)malloc(sizeof(t_player));
-	read(fd, player->name, 128);
-	read(fd, magic, 4);
-	if ((int)magic != 0)
-		return(error2("Error: File ", *av, " has an invalid header"));
-	read(fd, player->prog_size, 4);
-	read(fd, player->comment, 2048);
-	read(fd, magic, 4);
-	if ((int)magic != 0)
-		return(error2("Error: File ", *av, " has an invalid header"));
+	read(fd, &magic, 4);
+	if (magic != MAGIC)
+		return(error2("Error: File ", av, " has an invalid header"));
+	*player = (t_player*)malloc(sizeof(t_player));
+	read(fd, (*player)->name, 128);
+	read(fd, &magic, 4);
+	if (magic != 0)
+		return(error2("Error: File ", av, " has an invalid header"));
+	read(fd, &((*player)->prog_size), 4);
+	change_endian(&((*player)->prog_size), 4);
+	read(fd, (*player)->comment, 2048);
+	read(fd, &magic, 4);
+	if (magic != 0)
+		return(error2("Error: File ", av, " has an invalid header"));
 	return (1);
 }
 
 int		read_champion(char *av, t_player **player, int *id, int num)
 {
-	int		fd;
-	int		i;
-	int		size;
+	int				fd;
+	int				i;
+	unsigned int	size;
 
 	if (num >= MAX_PLAYERS)
 		return (error("Error: too many champions", 0));
@@ -65,15 +86,15 @@ int		read_champion(char *av, t_player **player, int *id, int num)
 		i++;
 	if (ft_strcmp(av + i - 4, ".cor"))
 		return (error("Error: the source files shall have .cor extension", 0));
-	if ((fd = open(*av, O_RDONLY)) == -1)
-		return (error("Error: can't read source file ", *av));
+	if ((fd = open(av, O_RDONLY)) == -1)
+		return (error("Error: can't read source file ", av));
 	i = 0;
 	while (player[i])
 		i++;
-	if (!read_champion_header(av, player[i], fd))
+	if (!read_champion_header(av, &(player[i]), fd))
 		return (0);
 	size = 0;
-	while (read(fd, (player[i]->code)[size], 1) && size <= CHAMP_MAX_SIZE)
+	while (read(fd, &((player[i]->code)[size]), 1) && size <= CHAMP_MAX_SIZE)
 		size++;
 	if (size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
 		return (error2("Error: champion ", av, " is of wrong size"));

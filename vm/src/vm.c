@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 15:31:24 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 19:12:03 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			assign_id(t_player	**player, int num)
 			return(error("Error: the number of the player shall be between 1 and ", ft_itoa(num)));
 		if (!(player[i]->id))
 			player[i]->id = id++;
+		player[i]->start_point = (player[i]->id - 1) * MEM_SIZE / num;
 		i++;
 	}
 	return (1);
@@ -52,8 +53,10 @@ t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 	while (ac--)
 	{
 		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
+		{
 			if (!read_opt(av, dump, &id) && free_players(res))
 				return(0);
+		}
 		else
 		{
 			if (!read_champion(*av, res, &id, *num) && free_players(res))
@@ -76,6 +79,7 @@ static int  print_usage(void)
 int         main(int ac, char **av)
 {
 	t_player	**players;
+	t_vm		*arena;
 	int			num_of_pl;
 	int			dump;
 
@@ -86,8 +90,8 @@ int         main(int ac, char **av)
 		return (1);
 	if (!num_of_pl && free_players(players))
 		return (print_usage());
-	init_arena(players, num_of_pl, dump);
-	
+	arena = (t_vm*)malloc(sizeof(t_vm));
+	init_arena(arena, players, num_of_pl, dump);
 
-
+	return (0);
 }

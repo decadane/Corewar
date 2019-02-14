@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 14:40:06 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 17:43:17 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@
 #include "op.h"
 #include "libft.h"
 
+#define MAGIC 0xf383ea00
+
 typedef struct	s_player
 {
 	short			id;
+	unsigned int	start_point;
 	char			name[PROG_NAME_LENGTH + 1];
 	char			comment[COMMENT_LENGTH + 1];
 	char			code[CHAMP_MAX_SIZE];
-	char			prog_size;
+	unsigned int	prog_size;
 }				t_player;
 
 typedef struct	s_process
@@ -58,8 +61,12 @@ typedef struct	s_vm
 int		read_opt(char **av, int *dump, int *id);
 int		read_champion(char *av, t_player **player, int *id, int num);
 
+void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump);
+
 int		error(char *str, char *param);
 int		error2(char *str, char *param, char *str2);
+
+int     free_players(t_player **res);
 
 
 
