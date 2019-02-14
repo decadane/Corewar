@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/14 15:48:49 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/14 19:29:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef struct		s_cmd
 	char			*name;
 	unsigned char	opcode;
 	unsigned char	codage;
-	char			*agrs[3];
-	char			*agrs_type[3];
+	char			*args[3];
+	char			*args_type[3];
+	unsigned char	cmd_size;
 }					t_cmd;
 
 typedef struct		s_collect
@@ -46,7 +47,21 @@ typedef struct		s_label
 }					t_label;
 
 //-------------kmedhurs--------------------
+////--------alloc_funcs--------------------
 
+t_cmd				*ft_cmd_creator(void);
+
+////---------free_funcs--------------------
+
+t_cmd				*ft_cmd_destroyer(t_cmd *cmd);
+
+t_cmd				*ft_parse_cmd_line(char *str);
+char				*ft_find_separator(char *str);
+void				ft_init_cmd_array(char *arr[17]);
+
+////---------DELETE_THIS_FUNKS!!!----------
+
+void				print_cmd(t_cmd *cmd);
 
 //-------------ffahey--------------------
 
