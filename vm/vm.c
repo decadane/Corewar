@@ -6,13 +6,39 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 14:03:48 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:31:24 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_player	*welcome_champions(int ac, char **av, int *dump, int *num)
+int			assign_id(t_player	**player, int num)
+{
+	int i;
+	int j;
+	int id;
+
+	i = 0;
+	id = 1;
+	while (player[i])
+	{
+		j = 0;
+		while (player[j])
+			if (player[j++]->id == id)
+			{
+				id++;
+				continue ;
+			}
+		if ((player[i]->id) > num)
+			return(error("Error: the number of the player shall be between 1 and ", ft_itoa(num)));
+		if (!(player[i]->id))
+			player[i]->id = id++;
+		i++;
+	}
+	return (1);
+}
+
+t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 {
 	int			id;
 	t_player	**res;
@@ -36,6 +62,8 @@ t_player	*welcome_champions(int ac, char **av, int *dump, int *num)
 		}
 		av++;
 	}
+	if (!(assign_id(res, *num) && free_players(res)))
+		return (0);
 	return (res);
 }
 
@@ -47,7 +75,7 @@ static int  print_usage(void)
 
 int         main(int ac, char **av)
 {
-	t_player	*players;
+	t_player	**players;
 	int			num_of_pl;
 	int			dump;
 
@@ -58,6 +86,7 @@ int         main(int ac, char **av)
 		return (1);
 	if (!num_of_pl && free_players(players))
 		return (print_usage());
+	init_arena(players, num_of_pl, dump);
 	
 
 

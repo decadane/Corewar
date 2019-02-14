@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 13:49:55 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 14:40:06 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_player
 
 typedef struct	s_process
 {
-	unsigned char	registry[REG_NUMBER][REG_SIZE];
+	int				registry[REG_NUMBER];
 	bool			carry;
 	unsigned char	cur_op;
 	unsigned int	last_live;
@@ -49,7 +49,7 @@ typedef struct	s_vm
 	unsigned int	cycles_to_die;
 	unsigned int	num_of_checks;
 	int				dump;
-	t_player		*players;
+	t_player		**players;
 	t_list			*processes;
 }				t_vm;
 

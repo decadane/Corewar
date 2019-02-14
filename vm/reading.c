@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 14:03:44 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:30:50 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		read_opt(char **av, int *dump, int *id)
 		av++;
 		*id = ft_atoi(*av);
 		if (id <= 0 || id > MAX_PLAYERS || **av < '0' || **av > '9')
-			return (error("Invalid champion's number!", 0));
+			return (error("Error: invalid champion's number", 0));
 	}
 	else
 	{
 		av++;
 		*dump = ft_atoi(*av);
 		if (*dump < 0 || **av < '0' || **av > '9')
-			return (error("Invalid dump!", 0));
+			return (error("Error: invalid dump", 0));
 	}
 	return (1);
 }
@@ -59,9 +59,14 @@ int		read_champion(char *av, t_player **player, int *id, int num)
 	int		size;
 
 	if (num >= MAX_PLAYERS)
-		return (error("Too many champions", 0));
+		return (error("Error: too many champions", 0));
+	i = 0;
+	while (av[i])
+		i++;
+	if (ft_strcmp(av + i - 4, ".cor"))
+		return (error("Error: the source files shall have .cor extension", 0));
 	if ((fd = open(*av, O_RDONLY)) == -1)
-		return (error("Can't read source file ", *av));
+		return (error("Error: can't read source file ", *av));
 	i = 0;
 	while (player[i])
 		i++;
@@ -72,7 +77,7 @@ int		read_champion(char *av, t_player **player, int *id, int num)
 		size++;
 	if (size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
 		return (error2("Error: champion ", av, " is of wrong size"));
-	if (*id && (player[i]->id = *id))
-		*id = 0;
+	player[i]->id = *id;
+	*id = 0;
 	return (1);
 }
