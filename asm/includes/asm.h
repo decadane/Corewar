@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/15 16:07:38 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/15 18:25:58 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct		s_collect
 {
 	char			bot_name[PROG_NAME_LENGTH + 1];
 	char			bot_comment[COMMENT_LENGTH + 1];
-	unsigned		bot_size;
+	unsigned int	bot_size;
 	char			*bot_code;
 	t_list			*labels;
 }					t_collect;
@@ -69,6 +69,7 @@ void				ft_free_collect(t_collect *col);
 void				ft_del_label(void *ptr, size_t size);
 t_collect			*ft_create_collect();
 void				ft_read_file(char *filename, t_collect *col);
+void				ft_write_file(t_collect *col, char *filename);
 
 
 #endif
