@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:38:21 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/08 13:56:32 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/15 16:08:55 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 
 void				ft_int_swap(int *a, int *b);
-
+int					ft_min_int(int a, int b);
 #endif
