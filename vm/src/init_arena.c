@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 15:14:21 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 19:10:23 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	add_process(t_list **procs, t_player *player, t_process *parent, int place)
 	new->carry = parent ? parent->carry : false;
 	new->last_live = parent ? parent->last_live : 0;
 	new->where_am_i = parent ? (parent->where_am_i + place) : player->start_point;
+	new->cycles_to_act = 0;
 	res = (t_list*)malloc(sizeof(t_list));
 	res->content = new;
 	res->next = *procs;
@@ -62,6 +63,8 @@ t_list *players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 		ft_printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id, (players[i])->prog_size, (players[i])->name, (players[i])->comment);
 		id++;
 	}
+	arena->cur_win_id = i;
+	arena->cur_win = players[i]->name;
 	return (procs);
 }
 
@@ -81,5 +84,5 @@ void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 	arena->dump = (dump >= 0) ? dump : -1;
 	arena->players = players;
 	procs = players_go_to_arena(arena, players, num_of_pl);
-	arena->processes = procs;
+	arena->procs = procs;
 }

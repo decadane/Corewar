@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 15:40:27 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:57:08 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ typedef struct	s_vm
 {
 	unsigned char	map[MEM_SIZE];
 	short			num_of_players;
-	char			cur_winner[PROG_NAME_LENGTH + 1];
+	char			*cur_win;
+	short			cur_win_id;
 	unsigned int	cycles_passed;
 	unsigned int	lives_per_cycle;
 	unsigned int	cycles_to_die;
 	unsigned int	num_of_checks;
 	int				dump;
 	t_player		**players;
-	t_list			*processes;
+	t_list			*procs;
 }				t_vm;
 
 
@@ -62,6 +63,8 @@ int		read_opt(char **av, int *dump, int *id, t_player **player);
 int		read_champion(char *av, t_player **player, int *id, int num);
 
 void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump);
+
+int     start_the_game(t_vm *arena);
 
 int		error(char *str, char *param);
 int		error2(char *str, char *param, char *str2);

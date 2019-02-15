@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 15:40:25 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 16:35:11 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,29 +55,20 @@ t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
 		{
 			if (!read_opt(av, dump, &id, res))
-			{
-				free_players(res);
-				return (0);
-			}
+				return free_players(res) ? NULL : NULL;
 			av++;
 			ac--;
 		}
 		else
 		{
 			if (!read_champion(*av, res, &id, *num))
-			{
-				free_players(res);
-				return (0);
-			}
+				return free_players(res) ? NULL : NULL;
 			(*num)++;
 		}
 		av++;
 	}
 	if (!(assign_id(res, *num)))
-	{
-		free_players(res);
-		return (0);
-	}
+		return free_players(res) ? NULL : NULL;
 	return (res);
 }
 
@@ -103,6 +94,7 @@ int         main(int ac, char **av)
 		return (print_usage());
 	arena = (t_vm*)malloc(sizeof(t_vm));
 	init_arena(arena, players, num_of_pl, dump);
-
+	start_the_game(arena);
+	free(arena);
 	return (0);
 }
