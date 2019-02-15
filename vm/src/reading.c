@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 15:09:53 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:40:51 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	change_endian(void *a, int size)
 		src[size] = dest[size];
 }
 
-int		read_opt(char **av, int *dump, int *id)
+int		read_opt(char **av, int *dump, int *id, t_player **player)
 {
 	if (*(*av + 1) == 'n')
 	{
@@ -41,6 +41,12 @@ int		read_opt(char **av, int *dump, int *id)
 		*id = ft_atoi(*av);
 		if (*id <= 0 || *id > MAX_PLAYERS || **av < '0' || **av > '9')
 			return (error("Error: invalid champion's number", 0));
+		while (*player)
+		{
+			if ((*player)->id == *id)
+				return (error("Error: all champions shall have different numbers", 0));
+			player++;
+		}
 	}
 	else
 	{

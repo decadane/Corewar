@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 14:41:52 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:40:27 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_vm
 
 
 
-int		read_opt(char **av, int *dump, int *id);
+int		read_opt(char **av, int *dump, int *id, t_player **player);
 int		read_champion(char *av, t_player **player, int *id, int num);
 
 void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump);
