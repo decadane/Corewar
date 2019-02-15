@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 19:11:28 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:09:53 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,23 @@ int		read_opt(char **av, int *dump, int *id)
 int		read_champion_header(char *av, t_player **player, int fd)
 {
 	unsigned int	magic;
+	t_player		*new_pl;
 
 	read(fd, &magic, 4);
 	if (magic != MAGIC)
 		return(error2("Error: File ", av, " has an invalid header"));
-	*player = (t_player*)malloc(sizeof(t_player));
-	read(fd, (*player)->name, 128);
+	new_pl = (t_player*)malloc(sizeof(t_player));
+	read(fd, new_pl->name, PROG_NAME_LENGTH);
 	read(fd, &magic, 4);
 	if (magic != 0)
 		return(error2("Error: File ", av, " has an invalid header"));
-	read(fd, &((*player)->prog_size), 4);
-	change_endian(&((*player)->prog_size), 4);
-	read(fd, (*player)->comment, 2048);
+	read(fd, &(new_pl->prog_size), 4);
+	change_endian(&(new_pl->prog_size), 4);
+	read(fd, new_pl->comment, COMMENT_LENGTH);
 	read(fd, &magic, 4);
 	if (magic != 0)
 		return(error2("Error: File ", av, " has an invalid header"));
+	*player = new_pl;
 	return (1);
 }
 

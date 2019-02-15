@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 19:12:03 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:11:05 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,28 @@ t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 	{
 		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
 		{
-			if (!read_opt(av, dump, &id) && free_players(res))
-				return(0);
+			if (!read_opt(av, dump, &id))
+			{
+				free_players(res);
+				return (0);
+			}
 		}
 		else
 		{
-			if (!read_champion(*av, res, &id, *num) && free_players(res))
+			if (!read_champion(*av, res, &id, *num))
+			{
+				free_players(res);
 				return (0);
+			}
 			(*num)++;
 		}
 		av++;
 	}
-	if (!(assign_id(res, *num) && free_players(res)))
+	if (!(assign_id(res, *num)))
+	{
+		free_players(res);
 		return (0);
+	}
 	return (res);
 }
 

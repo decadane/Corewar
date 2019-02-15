@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:17 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 13:31:12 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:54:06 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int     free_players(t_player **res)
 		free(res[i++]);
 	free(res);
 	res = NULL;
-	return (1);
+	return (0);
 }

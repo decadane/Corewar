@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/14 17:02:52 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:14:21 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,34 @@ void	add_process(t_list **procs, t_player *player, t_process *parent, int place)
 	procs = &res;
 }
 
-void	unload_code(unsigned char map[MEM_SIZE], t_player *player)
+t_list *players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 {
-	int i;
+	t_list			*procs;
+	int				i;
+	int				id;
+	unsigned char	*start;
 
-	i = player->start_point;
-	ft_memcpy(&(map[i]), player->code, player->prog_size);
+	id = 1;
+	procs = NULL;
+	ft_printf("Introducing contestants...\n");
+	while (id <= num_of_pl)
+	{
+		i = 0;
+		while ((players[i])->id != id)
+			i++;
+		start = &((arena->map)[players[i]->start_point]);
+		ft_memcpy(start, (players[i])->code, (players[i])->prog_size);
+		add_process(&procs, players[i], 0, 0);
+		ft_printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id, (players[i])->prog_size, (players[i])->name, (players[i])->comment);
+		id++;
+	}
+	return (procs);
 }
 
 void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 {
 	t_list	*procs;
 	int		i;
-	int		id;
 
 	i = 0;
 	while (i < MEM_SIZE)
@@ -65,16 +80,6 @@ void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 	arena->num_of_checks = 0;
 	arena->dump = (dump >= 0) ? dump : -1;
 	arena->players = players;
-	id = 1;
-	procs = NULL;
-	while (id <= num_of_pl)
-	{
-		i = 0;
-		while (players[i]->id != id)
-			i++;
-		unload_code(arena->map, players[i]);
-		add_process(&procs, players[i], 0, 0);
-		id++;
-	}
+	procs = players_go_to_arena(arena, players, num_of_pl);
 	arena->processes = procs;
 }

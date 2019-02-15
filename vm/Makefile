@@ -6,7 +6,7 @@
 #    By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:43:17 by ffahey            #+#    #+#              #
-#    Updated: 2019/02/14 15:43:38 by kcarrot          ###   ########.fr        #
+#    Updated: 2019/02/15 14:05:31 by kcarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ make_lib:
 	make -C ../libft/
 
 $(NAME): $(OBJ) $(LIB)
-	gcc $(FLAGS) $^ -o $@ -Iinc -I../libft -L../libft -lft
+	gcc $(FLAGS) $^ -o $@ -Iinc -I../libft -L../libft -lft -L../libft -lftprintf
 
 obj/%.o: %.c $(HEADERS)
 	gcc $(FLAGS) -c $< -o $@ -Iinc -I../libft
