@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 17:21:16 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/16 19:35:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,22 @@ static char		*ft_parse_args(char *str, t_cmd *cmd)
 {
 	char	**args;
 	int		i;
+	char	*tmp;
 
 	i = 0;
+	tmp = str;
 	args = ft_strsplit(str, SEPARATOR_CHAR);
 	while (args[i])
 	{
 		cmd->args[i] = args[i];
+		if ((tmp = ft_strchr(tmp, SEPARATOR_CHAR)))
+			tmp++;
 		i++;
 	}
 	free(args);
-	return (str);
+	if (tmp && *tmp != '#')// Error undefined char
+		printf("Error undefined char: %s\n", str);
+	return (tmp);
 }
 
 static t_cmd	*ft_parse_line(char *str, int num)
@@ -105,7 +111,7 @@ t_list			*ft_parse_exec_code(int fd)
 	lst = NULL;
 	while (get_next_line(fd, &str))
 	{
-		if ((cmd_tmp = ft_parse_line(str, num)) != NULL)
+		if (!ft_check_comment(str) && (cmd_tmp = ft_parse_line(str, num)))
 		{
 			num++;
 			tmp = ft_lstnew(cmd_tmp, sizeof(t_cmd));
@@ -114,8 +120,9 @@ t_list			*ft_parse_exec_code(int fd)
 		}
 		else
 			free(str);
-		//Output error Parse = NULL
 		tmp = NULL;
+		if (cmd_tmp == NULL)
+			ft_error_output("Error parse = NULL\n");
 	}
 	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 18:37:04 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/16 19:31:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ void		ft_init_args_array(char cmds[17])
 	cmds[14] = 0x40;
 	cmds[15] = 0x80;
 	cmds[16] = 0x0;
+}
+
+int			ft_check_comment(char *str)
+{
+	while (*str)
+	{
+		if (*str == ' ' || *str == '\t')
+			str++;
+		else if (*str == '#')
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
 }
 
 char		*ft_trim_and_exec_cmd(char *(*funk)(char *str, t_cmd *cmd),

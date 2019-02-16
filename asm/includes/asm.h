@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/16 18:09:39 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/16 19:35:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct		s_label
 {
 	char			*name;
 	unsigned		offset;
-	char			value;
 }					t_label;
 
 //-------------kmedhurs--------------------
@@ -63,6 +62,7 @@ char				*ft_trim_and_exec_cmd(char *(*funk)(char *str, t_cmd *cmd),
 		char *str, t_cmd *cmd);
 char				ft_check_arg_type(t_cmd *cmd, int i);
 void				ft_init_args_array(char cmds[17]);
+int					ft_check_comment(char *str);
 
 t_list				*ft_first_process_lst(t_list *lst);
 
@@ -72,5 +72,7 @@ void				print_cmd(t_cmd *cmd);
 void				print_cmd_list(t_list *lst);
 
 //-------------ffahey--------------------
+
+void				ft_error_output(char *str);
 
 #endif
