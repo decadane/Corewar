@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 16:35:28 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:21:14 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		read_champion(char *av, t_player **player, int *id, int num)
 	size = 0;
 	while (read(fd, &((player[i]->code)[size]), 1) && size <= CHAMP_MAX_SIZE)
 		size++;
-	if (size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
+	if (!size || size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
 		return (error2("Error: champion ", av, " is of wrong size"));
 	player[i]->id = *id;
 	*id = 0;
