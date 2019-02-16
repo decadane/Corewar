@@ -2,10 +2,12 @@
 
 int		main()
 {
-	t_cmd	*cmd;
-	char	*str = "zjmp r5";
+	int		fd;
+	t_list	*lst;
 
-	cmd = ft_parse_cmd_line(str);
-	cmd = ft_cmd_destroyer(cmd);
+	fd = open("test.s", O_RDONLY);
+	lst = ft_parse_exec_code(fd);
+	print_cmd_list(lst);
+	ft_lstdel(&lst, ft_cmd_destroyer);
 	return (0);
 }

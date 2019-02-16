@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:56:21 by marvin            #+#    #+#              #
-#    Updated: 2019/02/13 18:05:29 by ffahey           ###   ########.fr        #
+#    Updated: 2019/02/16 13:44:38 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c srcs
 vpath %.h includes
 vpath %.o bin
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -ggdb
 
 OBJ = $(addprefix bin/,$(notdir $(patsubst %.c,%.o,$(wildcard srcs/*.c))))
 
@@ -33,10 +33,10 @@ make_lib:
 	make -C ../libft/
 
 $(NAME): $(OBJ) $(LIB)
-	gcc $(FLAGS) $^ -o $@ -Iincludes -Ilibft -L../libft -lft
+	gcc $(FLAGS) $^ -o $@ -L../libft -lft
 
 bin/%.o: %.c $(HEADERS)
-	gcc $(FLAGS) -c $< -o $@ -Iincludes -I../libft
+	gcc $(FLAGS) -c $< -o $@ -Iincludes -I../libft -I..
 
 clean:
 	rm -rf bin/

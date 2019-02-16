@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/14 19:29:22 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/16 13:37:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 # define ASM_H
 
 # include <unistd.h>
-# include <stdio.h>
+# include <stdio.h> //DELETE!
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include "libft.h"
+# include "op.h"
 
 typedef struct		s_cmd
 {
-	char			*name;
+	char			*label;
 	unsigned char	opcode;
 	unsigned char	codage;
 	char			*args[3];
-	char			*args_type[3];
-	unsigned char	cmd_size;
+	unsigned char	pargs[3];
+	unsigned char	size;
+	int				num;
 }					t_cmd;
 
 typedef struct		s_collect
@@ -53,15 +55,15 @@ t_cmd				*ft_cmd_creator(void);
 
 ////---------free_funcs--------------------
 
-t_cmd				*ft_cmd_destroyer(t_cmd *cmd);
+//t_cmd				*ft_cmd_destroyer(t_cmd *cmd);
+void				ft_cmd_destroyer(void *lst, size_t size);
 
-t_cmd				*ft_parse_cmd_line(char *str);
-char				*ft_find_separator(char *str);
-void				ft_init_cmd_array(char *arr[17]);
+t_list				*ft_parse_exec_code(int fd);
 
 ////---------DELETE_THIS_FUNKS!!!----------
 
 void				print_cmd(t_cmd *cmd);
+void				print_cmd_list(t_list *lst);
 
 //-------------ffahey--------------------
 
