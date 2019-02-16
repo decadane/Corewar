@@ -6,11 +6,14 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:56:55 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 17:20:12 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+unsigned short	g_cyc_to_act[16] = {10, 5, 5, 10, 10,
+	6, 6, 6, 20, 25, 25, 800, 10, 50, 1000, 2};
 
 void	get_command(t_vm *arena, t_process* proc)
 {
@@ -19,11 +22,13 @@ void	get_command(t_vm *arena, t_process* proc)
 	place = proc->where_am_i;
 	if ((arena->map)[place] < 1 || (arena->map)[place] > 16)
 	{
-		proc->where_am_i++;
+		proc->where_am_i = (proc->where_am_i + 1) % MEM_SIZE;
 		return ;
 	}
-
-
+	proc->cur_op = (arena->map)[place];
+	proc->cur_op_args = (arena->map)[place + 1];
+	proc->cycles_to_act = g_cyc_to_act[proc->cur_op - 1];
+//	find_next_set();
 }
 
 void	new_cycle(t_vm *arena)
@@ -40,8 +45,8 @@ void	new_cycle(t_vm *arena)
 		else
 		{
 			cur_proc->cycles_to_act--;
-			if (!(cur_proc->cycles_to_act))
-				exec_command(arena, cur_proc); // Выполняется cur-op, каретка сдвигается на next_set (меняется where_am_i)
+			//if (!(cur_proc->cycles_to_act))
+			//	exec_command(arena, cur_proc); // Выполняется cur-op, каретка сдвигается на next_set (меняется where_am_i)
 		}
 		procs = procs->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:51:56 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 17:20:02 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,14 @@ t_list *players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 		id++;
 	}
 	arena->cur_win_id = i;
-	arena->cur_win = players[i]->name;
 	return (procs);
 }
 
 void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 {
 	t_list	*procs;
-	int		i;
-	int		j;
+	int				i;
+	unsigned int	j;
 
 	i = 0;
 	while (i < MEM_SIZE)
@@ -89,12 +88,11 @@ void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 	arena->players = players;
 	procs = players_go_to_arena(arena, players, num_of_pl);
 	arena->procs = procs;
-	while (num_of_pl)
+	while (--num_of_pl >= 0)
 	{
-		i = (t_player*)(arena->players[num_of_pl])->start_point;
+		i = (players[num_of_pl])->start_point;
 		j = 0;
-		while (j++ < (t_player*)(arena->players[num_of_pl])->prog_size)
-			arena->color_map[i++] = (t_player*)(arena->players[num_of_pl])->id;
-		num_of_pl--;
+		while (j++ < (players[num_of_pl])->prog_size)
+			arena->color_map[i++] = (players[num_of_pl])->id;
 	}
 }
