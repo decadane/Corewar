@@ -6,11 +6,25 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:16:41 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:44:40 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	get_command(t_vm *arena, t_process* proc)
+{
+	unsigned short	place;
+
+	place = proc->where_am_i;
+	if ((arena->map)[place] < 1 || (arena->map)[place] > 16)
+	{
+		proc->where_am_i++;
+		return ;
+	}
+
+
+}
 
 void	new_cycle(t_vm *arena)
 {
@@ -22,7 +36,7 @@ void	new_cycle(t_vm *arena)
 	{
 		cur_proc = (t_process*)(procs->content);
 		if (!(cur_proc->cycles_to_act))
-			get_comand(arena, cur_proc); // Устанавливается cur_op, cur_op_args и cycles_to_act
+			get_command(arena, cur_proc); // Устанавливается cur_op, cur_op_args и cycles_to_act
 		else
 		{
 			cur_proc->cycles_to_act--;

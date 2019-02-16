@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:13:54 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:44:37 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_process
 typedef struct	s_vm
 {
 	unsigned char	map[MEM_SIZE];
+	unsigned char	color_map[MEM_SIZE];
 	short			num_of_players;
 	unsigned int	num_of_proc;
 	char			*cur_win;
@@ -72,18 +73,6 @@ int		error(char *str, char *param);
 int		error2(char *str, char *param, char *str2);
 
 int     free_players(t_player **res);
-
-
-
-
-
-void    live(t_vm *arena, t_process *proc, unsigned int arg1);
-void	ld(t_vm *arena, t_process *proc, unsigned int arg1, unsigned char arg2);
-void	st(t_process *proc, unsigned char arg1, unsigned int arg2);
-void	add(t_process *proc, unsigned char arg1, unsigned char arg2, unsigned char arg3);
-void	sub(t_process *proc, unsigned char arg1, unsigned char arg2, unsigned char arg3);
-
-
 
 
 
