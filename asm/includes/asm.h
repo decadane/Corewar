@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/16 13:37:15 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/16 18:09:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,16 @@ t_cmd				*ft_cmd_creator(void);
 
 ////---------free_funcs--------------------
 
-//t_cmd				*ft_cmd_destroyer(t_cmd *cmd);
 void				ft_cmd_destroyer(void *lst, size_t size);
 
+void				ft_init_cmd_array(char *arr[17]);
 t_list				*ft_parse_exec_code(int fd);
+char				*ft_trim_and_exec_cmd(char *(*funk)(char *str, t_cmd *cmd),
+		char *str, t_cmd *cmd);
+char				ft_check_arg_type(t_cmd *cmd, int i);
+void				ft_init_args_array(char cmds[17]);
+
+t_list				*ft_first_process_lst(t_list *lst);
 
 ////---------DELETE_THIS_FUNKS!!!----------
 
