@@ -6,11 +6,21 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:44:33 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:56:15 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void		announce_the_winner(t_vm *arena, t_player **players)
+{
+	int i;
+
+	i = 0;
+	while (players[i]->id != arena->cur_win_id)
+		i++;
+	ft_printf("Contestant %d, \"%s\", has won !", players[i]->id , players[i]->name);
+}
 
 int			assign_id(t_player	**player, int num)
 {
@@ -95,6 +105,7 @@ int         main(int ac, char **av)
 	arena = (t_vm*)malloc(sizeof(t_vm));
 	init_arena(arena, players, num_of_pl, dump);
 	start_the_game(arena);
+	announce_the_winner(arena, players);
 	free(arena);
 	return (0);
 }

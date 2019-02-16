@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:44:37 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:55:55 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct	s_vm
 	unsigned char	color_map[MEM_SIZE];
 	short			num_of_players;
 	unsigned int	num_of_proc;
-	char			*cur_win;
 	short			cur_win_id;
 	unsigned int	cycles_passed;
 	unsigned int	lives_per_cycle;

@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:44:40 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:56:55 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,5 @@ int     start_the_game(t_vm *arena)
 		else
 			checks++;
 	}
-	ft_printf("Contestant %d, \"%s\", has won !", arena->cur_win_id, arena->cur_win);
 	return (0);
 }
