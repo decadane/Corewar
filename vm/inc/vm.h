@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/15 18:57:08 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:13:54 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_process
 	int				registry[REG_NUMBER];
 	bool			carry;
 	unsigned char	cur_op;
+	unsigned char	cur_op_args;
 	unsigned int	last_live;
 	unsigned short	cycles_to_act;
 	unsigned short	where_am_i;
@@ -46,15 +47,16 @@ typedef struct	s_vm
 {
 	unsigned char	map[MEM_SIZE];
 	short			num_of_players;
+	unsigned int	num_of_proc;
 	char			*cur_win;
 	short			cur_win_id;
 	unsigned int	cycles_passed;
 	unsigned int	lives_per_cycle;
 	unsigned int	cycles_to_die;
-	unsigned int	num_of_checks;
 	int				dump;
 	t_player		**players;
 	t_list			*procs;
+	void			(*f_com[16])();
 }				t_vm;
 
 
@@ -70,6 +72,18 @@ int		error(char *str, char *param);
 int		error2(char *str, char *param, char *str2);
 
 int     free_players(t_player **res);
+
+
+
+
+
+void    live(t_vm *arena, t_process *proc, unsigned int arg1);
+void	ld(t_vm *arena, t_process *proc, unsigned int arg1, unsigned char arg2);
+void	st(t_process *proc, unsigned char arg1, unsigned int arg2);
+void	add(t_process *proc, unsigned char arg1, unsigned char arg2, unsigned char arg3);
+void	sub(t_process *proc, unsigned char arg1, unsigned char arg2, unsigned char arg3);
+
+
 
 
 
