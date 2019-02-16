@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/15 18:25:58 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/16 18:45:25 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void				ft_del_label(void *ptr, size_t size);
 t_collect			*ft_create_collect();
 void				ft_read_file(char *filename, t_collect *col);
 void				ft_write_file(t_collect *col, char *filename);
-
+char				ft_read_ws(int fd);
+int					ft_isliteral(int c);
+char				*ft_read_string(int fd, size_t size, int (*check)(int c));
+void				ft_skip_comment(int fd);
+int					ft_check_endline(int fd);
 
 #endif

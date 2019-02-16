@@ -5,103 +5,115 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 16:39:39 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/15 16:48:58 by ffahey           ###   ########.fr       */
+/*   Created: 2019/02/16 13:02:59 by ffahey            #+#    #+#             */
+/*   Updated: 2019/02/16 19:14:55 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	ft_read_name(t_collect *col, char *cmd, unsigned char *flag)
+void	ft_read_name(int fd, t_collect *col, unsigned char *flag)
 {
-	int	i;
+	char	c;
+	char	*str;
+	int		ret;
 
 	if (*flag & 0xf0)
-		ft_error_output("double \".name\" comand");
-	cmd += ft_strlen(NAME_CMD_STRING);
-	while (*cmd == ' ' || *cmd == '\t')
-		cmd++;
-	if (*cmd == '\"')
+		ft_error_output("Double .name command");
+	c = ft_read_ws(fd);
+	if (c == '\"')
 	{
-		cmd++;
-		i = 0;
-		while (cmd[i] != '\"')
-		{
-			if (cmd[i] == '\0')
-				ft_error_output("Error1 \".name\" command");
-			else
-				i++;
-		}
-		ft_strncpy(col->bot_name, cmd, ft_min_int(i, PROG_NAME_LENGTH));
+		str = ft_read_string(fd, PROG_NAME_LENGTH, ft_isliteral);
+		ret = read(fd, &c, 1);
+		if (ret > 0 && c != '\"')
+			ft_error_output("Invalid name length.");
+		else if (ret == -1)
+			ft_putstr(strerror(errno));
+		if (ft_check_endline(fd) == 0)
+			ft_error_output("Invalid command line");
+		ft_strcpy(col->bot_name, str);
+		free(str);
 		*flag |= 0xf0;
 	}
 	else
-		ft_error_output("Error2 \".name\" command");
+		ft_error_output("Error command");
 }
 
-static void	ft_read_comment(t_collect *col, char *cmd, unsigned char *flag)
+void	ft_read_comment(int fd, t_collect *col, unsigned char *flag)
 {
-	int	i;
+	char	c;
+	char	*str;
+	int		ret;
 
 	if (*flag & 0x0f)
-		ft_error_output("double \".comment\" comand");
-	cmd += ft_strlen(COMMENT_CMD_STRING);
-	while (*cmd == ' ' || *cmd == '\t')
-		cmd++;
-	if (*cmd == '\"')
+		ft_error_output("Double .comment command");
+	c = ft_read_ws(fd);
+	if (c == '\"')
 	{
-		cmd++;
-		i = 0;
-		while (cmd[i] != '\"')
-		{
-			if (cmd[i] == '\0')
-				ft_error_output("Error \".comment\" command");
-			else
-				i++;
-		}
-		ft_strncpy(col->bot_comment, cmd, ft_min_int(i, COMMENT_LENGTH));
+		str = ft_read_string(fd, COMMENT_LENGTH, ft_isliteral);
+		ret = read(fd, &c, 1);
+		if (ret > 0 && c != '\"')
+			ft_error_output("Invalid comment length");
+		else if (ret == -1)
+			ft_putstr(strerror(errno));
+		if (ft_check_endline(fd) == 0)
+			ft_error_output("Invalid command line");
+		ft_strcpy(col->bot_comment, str);
+		free(str);
 		*flag |= 0x0f;
 	}
 	else
-		ft_error_output("Error \".comment\" command");
+		ft_error_output("Error command");
 }
 
-static void	ft_header(int fd, t_collect *col)
+void	ft_read_name_or_comment(int fd, t_collect *col, unsigned char *flag)
 {
-	char			*data;
-	char			*cmd;
+	char	*command;
+
+	command = NULL;
+	command = ft_read_string(fd, 10, ft_isalpha);
+	if (ft_strcmp(command, NAME_CMD_STRING + 1) == 0)
+		ft_read_name(fd, col, flag);
+	else if (ft_strcmp(command, COMMENT_CMD_STRING + 1) == 0)
+		ft_read_comment(fd, col, flag);
+	else
+		ft_error_output("Invalid command.");
+	free(command);
+}
+
+void	ft_read_header(int fd, t_collect *col)
+{
+	char			c;
 	unsigned char	flag;
 
-	flag = 0;
-	while (get_next_line(fd, &data) > 0)
+	flag = 0x00;
+	while (1)
 	{
-		cmd = data;
-		while (*cmd == ' ' || *cmd == '\t')
-			cmd++;
-		if (*cmd == '#')
+		c = ft_read_ws(fd);
+		if (c == '#')
 		{
-			free(data);
+			ft_skip_comment(fd);
 			continue ;
 		}
-		if (*cmd && !ft_strncmp(cmd, NAME_CMD_STRING,
-					ft_strlen(NAME_CMD_STRING)))
-			ft_read_name(col, cmd, &flag);
-		else if (*cmd && !ft_strncmp(cmd, COMMENT_CMD_STRING,
-					ft_strlen(COMMENT_CMD_STRING)))
-			ft_read_comment(col, cmd, &flag);
-		free(data);
-		if (flag == 0xff)
-			return ;
+		else if (c == '.')
+			ft_read_name_or_comment(fd, col, &flag);
+		else if (flag != 0xff)
+			ft_error_output("Invalid command line.");
+		else
+		{
+			lseek(fd, -1, SEEK_CUR);
+			break ;
+		}
 	}
 }
 
-void		ft_read_file(char *filename, t_collect *col)
+void	ft_read_file(char *filename, t_collect *col)
 {
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_putstr(strerror(errno));
-	ft_header(fd, col);
+	ft_read_header(fd, col);
 	close(fd);
 }
