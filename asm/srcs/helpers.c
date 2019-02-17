@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 18:35:38 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:05:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void		ft_init_args_array(char cmds[17])
 
 int			ft_check_comment(char *str)
 {
+	if (!str)
+		return (0);
 	while (*str)
 	{
 		if (*str == ' ' || *str == '\t')

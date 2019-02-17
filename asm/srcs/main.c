@@ -9,7 +9,7 @@ int		main()
 	unsigned bot_size;
 
 	labels = NULL;
-	fd = open("test.s", O_RDONLY);
+	fd = open("ffahey.s", O_RDONLY);
 	lst = ft_parse_exec_code(fd);
 	lst = ft_process_lst(lst, labels, 1);
 	labels = ft_collect_labels(lst);

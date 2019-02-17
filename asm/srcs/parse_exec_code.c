@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 18:36:19 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:24:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,24 @@ static char		*ft_parse_args(char *str, t_cmd *cmd)
 	char	**args;
 	int		i;
 	char	*tmp;
+	char	*tmp2;
 
 	i = 0;
 	tmp = str;
 	args = ft_strsplit(str, SEPARATOR_CHAR);
 	while (args[i])
 	{
+		tmp2 = args[i];
+		args[i] = ft_strtrim(args[i]);
+		free(tmp2);
 		cmd->args[i] = args[i];
 		if ((tmp = ft_strchr(tmp, SEPARATOR_CHAR)))
 			tmp++;
 		i++;
 	}
 	free(args);
-	if (tmp && *tmp != '#')// Error undefined char
-		printf("Error undefined char: %s\n", str);
+	if (tmp && *tmp != '#')
+		ft_error_output("Error undefined char");
 	return (tmp);
 }
 
