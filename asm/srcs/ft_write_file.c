@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:51:35 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 19:00:48 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 21:31:08 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_write_file(t_collect *col, char *filename)
 	if (fd == -1)
 		ft_putstr(strerror(errno));
 	magic = COREWAR_EXEC_MAGIC;
-	zero = 0xaaaaaaaa;
+	zero = 0x00000000;
 	ft_reverse_write(fd, &magic, sizeof(magic));
 	write(fd, col->bot_name, PROG_NAME_LENGTH);
 	write(fd, &zero, sizeof(zero));
