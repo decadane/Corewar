@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_output.c                                  :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 16:26:06 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 18:34:58 by ffahey           ###   ########.fr       */
+/*   Created: 2019/02/13 19:46:30 by marvin            #+#    #+#             */
+/*   Updated: 2019/02/14 16:02:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	ft_error_output(char *str)
+int		ft_return_error(int error_code)
 {
-	printf("%u\n", g_line_number);
-	ft_putstr(str);
-	ft_putstr(" [line ");
-	ft_putnbr((int)g_line_number);
-	ft_putstr("]\n");
-	exit(-1);
+	if (error_code == 1)
+		ft_putstr_fd("usage: ./asm champion_file.s\n", 1);
+	if (error_code == 2)
+		ft_putstr_fd("Input error: file not found\n", 2);
+	return (error_code);
 }

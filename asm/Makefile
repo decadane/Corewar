@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:56:21 by marvin            #+#    #+#              #
-#    Updated: 2019/02/14 17:35:20 by ffahey           ###   ########.fr        #
+#    Updated: 2019/02/17 18:29:26 by ffahey           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c srcs
 vpath %.h includes
 vpath %.o bin
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -ggdb
 
 OBJ = $(addprefix bin/,$(notdir $(patsubst %.c,%.o,$(wildcard srcs/*.c))))
 
