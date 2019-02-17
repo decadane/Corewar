@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:51:01 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 18:37:08 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:29:52 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,5 @@ t_cmd	*ft_cmd_creator(void)
 	cmd->pargs[1] = 0;
 	cmd->pargs[2] = 0;
 	cmd->size = 2;
-	cmd->num = 0;
 	return (cmd);
 }

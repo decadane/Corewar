@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 19:35:00 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:24:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,32 @@ static char		*ft_parse_args(char *str, t_cmd *cmd)
 	char	**args;
 	int		i;
 	char	*tmp;
+	char	*tmp2;
 
 	i = 0;
 	tmp = str;
 	args = ft_strsplit(str, SEPARATOR_CHAR);
 	while (args[i])
 	{
+		tmp2 = args[i];
+		args[i] = ft_strtrim(args[i]);
+		free(tmp2);
 		cmd->args[i] = args[i];
 		if ((tmp = ft_strchr(tmp, SEPARATOR_CHAR)))
 			tmp++;
 		i++;
 	}
 	free(args);
-	if (tmp && *tmp != '#')// Error undefined char
-		printf("Error undefined char: %s\n", str);
+	if (tmp && *tmp != '#')
+		ft_error_output("Error undefined char");
 	return (tmp);
 }
 
-static t_cmd	*ft_parse_line(char *str, int num)
+static t_cmd	*ft_parse_line(char *str)
 {
 	t_cmd	*cmd;
 
 	cmd = ft_cmd_creator();
-	cmd->num = num;
 	str = ft_trim_and_exec_cmd(ft_parse_label, str, cmd);
 	str = ft_trim_and_exec_cmd(ft_parse_cmds, str, cmd);
 	str = ft_trim_and_exec_cmd(ft_parse_args, str, cmd);
@@ -105,15 +108,12 @@ t_list			*ft_parse_exec_code(int fd)
 	t_list	*lst;
 	t_list	*tmp;
 	t_cmd	*cmd_tmp;
-	int		num;
 
-	num = 0;
 	lst = NULL;
 	while (get_next_line(fd, &str))
 	{
-		if (!ft_check_comment(str) && (cmd_tmp = ft_parse_line(str, num)))
+		if (!ft_check_comment(str) && (cmd_tmp = ft_parse_line(str)))
 		{
-			num++;
 			tmp = ft_lstnew(cmd_tmp, sizeof(t_cmd));
 			ft_lstradd(&lst, tmp);
 			free(cmd_tmp);

@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 18:45:27 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:29:08 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct		s_cmd
 	char			*args[3];
 	int				pargs[3];
 	unsigned char	size;
-	int				num;
 }					t_cmd;
 
 typedef struct		s_label

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 18:17:02 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:24:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void		ft_parse_arg(t_cmd *cmd, int i)
 		return ;
 	while (command[j])
 	{
-		if (ft_isdigit(command[j]) || command[j] == ' ')
+		if (ft_isdigit(command[j]) || command[j] == ' ' || command[j] == '-')
 			j++;
 		else if (command[j] == '#')
 			break ;
-		else //Error forbidden char in arg
-			printf("Forbidden char\n");
+		else 
+			ft_error_output("Error forbidden char");
 	}
 	cmd->pargs[i] = ft_atoi(command);
 	free(cmd->args[i]);
