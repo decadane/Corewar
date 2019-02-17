@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:31:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 14:45:49 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 15:16:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	ft_cmd_destroyer(void *node, size_t size)
 	}
 	bzero(node, size);
 	free(cmd);
+}
+
+void	ft_lbl_destroyer(void *node, size_t size)
+{
+	bzero(node, size);
+	free(node);
 }

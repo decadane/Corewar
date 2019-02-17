@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 19:31:42 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 16:19:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,19 @@ char		ft_check_arg_type(t_cmd *cmd, int i)
 	return ((cmds[cmd->opcode - 1] >> (tmp - code)) & 1);
 }
 
+unsigned 	ft_find_result_len(t_list *lst)
+{
+	unsigned	res;
+
+	res = 0;
+	while (lst)
+	{
+		res += ((t_cmd*)lst->content)->size;
+		lst = lst->next;
+	}
+	return (res);
+}
+
 void		ft_init_cmd_array(char *arr[17])
 {
 	arr[0] = "live";
@@ -156,6 +169,23 @@ void		print_cmd_list(t_list *lst)
 	while (lst)
 	{
 		print_cmd((t_cmd*)lst->content);
+		lst = lst->next;
+	}
+}
+
+void		print_lbl(t_label *lbl)
+{
+	if (!lbl)
+		return ;
+	printf("Label: %s|\n", lbl->name);
+	printf("Offset: %d\n", lbl->offset);
+}
+
+void		print_lbl_list(t_list *lst)
+{
+	while (lst)
+	{
+		print_lbl((t_label*)lst->content);
 		lst = lst->next;
 	}
 }

@@ -6,11 +6,22 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:08:56 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/16 18:46:11 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 14:21:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+t_label	*ft_lbl_creator(void)
+{
+	t_label	*lbl;
+
+	if (!(lbl = (t_label*)malloc(sizeof(t_label))))
+		exit(-20);
+	lbl->name = NULL;
+	lbl->offset = 0;
+	return (lbl);
+}
 
 t_cmd	*ft_cmd_creator(void)
 {
