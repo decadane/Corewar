@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 13:02:59 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/16 19:14:55 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 15:20:43 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,12 @@ void	ft_read_header(int fd, t_collect *col)
 	while (1)
 	{
 		c = ft_read_ws(fd);
-		if (c == '#')
+		if (c == '#' || c == '\n')
 		{
-			ft_skip_comment(fd);
+			if (c == '#')
+				ft_skip_comment(fd);
+			else
+				g_line_number++;
 			continue ;
 		}
 		else if (c == '.')

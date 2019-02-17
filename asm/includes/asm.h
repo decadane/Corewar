@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/16 18:45:25 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 15:32:26 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "op.h"
 
 # define C(a) printf("check%d\n", a);
+
+extern unsigned		g_line_number;
 
 typedef struct		s_line
 {
@@ -57,7 +59,6 @@ typedef struct		s_collect
 	char			*bot_code;
 	t_list			*labels;
 }					t_collect;
-
 
 //-------------kmedhurs--------------------
 

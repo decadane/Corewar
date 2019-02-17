@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 16:55:18 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/16 19:06:13 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 15:18:08 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_skip_comment(int fd)
 		if (ret == -1)
 			ft_putstr(strerror(errno));
 	}
+	if (c == '\n')
+		g_line_number++;
 }
 
 int		ft_isliteral(int c)
@@ -63,6 +65,8 @@ char	*ft_read_string(int fd, size_t size, int (*check)(int c))
 	ft_bzero(str, size + 1);
 	while (i < size && (ret = read(fd, &str[i], 1) > 0))
 	{
+		if (str[i] == '\n')
+			g_line_number++;
 		if (check(str[i]) == 0)
 			break ;
 		i++;
@@ -84,6 +88,8 @@ int		ft_check_endline(int fd)
 	{
 		if (c == '#')
 			ft_skip_comment(fd);
+		else if (c == '\n')
+			g_line_number++;
 		return (1);
 	}
 	else

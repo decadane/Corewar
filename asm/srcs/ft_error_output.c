@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:26:06 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/14 16:27:08 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 15:19:12 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	ft_error_output(char *str)
 {
-	ft_putendl(str);
+	printf("%u\n", g_line_number);
+	ft_putstr(str);
+	ft_putstr(" [line ");
+	ft_putnbr((int)g_line_number);
+	ft_putstr("]\n");
 	exit(-1);
 }
