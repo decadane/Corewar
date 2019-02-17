@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 19:05:51 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 20:08:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,27 @@ void		ft_init_args_array(char cmds[17])
 	cmds[14] = 0x40;
 	cmds[15] = 0x80;
 	cmds[16] = 0x0;
+}
+
+void		ft_init_nums_array(int cmds[17])
+{
+	cmds[0] = 1;
+	cmds[1] = 2;
+	cmds[2] = 2;
+	cmds[3] = 3;
+	cmds[4] = 3;
+	cmds[5] = 3;
+	cmds[6] = 3;
+	cmds[7] = 3;
+	cmds[8] = 1;
+	cmds[9] = 3;
+	cmds[10] = 3;
+	cmds[11] = 1;
+	cmds[12] = 2;
+	cmds[13] = 3;
+	cmds[14] = 1;
+	cmds[15] = 1;
+	cmds[16] = 0;
 }
 
 int			ft_check_comment(char *str)

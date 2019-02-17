@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 19:24:48 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 20:46:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,20 @@ static void		ft_first_process_cmd(t_cmd *cmd)
 {
 	char	cmds[17];
 	int		i;
+	int		cmds_num[17];
 
 	i = 0;
 	ft_init_args_array(cmds);
+	ft_init_nums_array(cmds_num);
 	while (i < 3)
 	{
-		if (cmd->args[i] && ft_check_arg_type(cmd, i))
+		if (cmd->args[i] && ft_check_arg_type(cmd, i) &&
+				i <= cmds_num[cmd->opcode - 1])
 			ft_parse_arg(cmd, i);
-//		else Error arg type is forbidden
+		else if (i > cmds_num[cmd->opcode - 1] && cmd->args[i])
+			ft_error_output("Error arg type is forbidden");
+		else
+			cmd->codage <<= 2;
 		i++;
 	}
 }
