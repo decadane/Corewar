@@ -59,7 +59,11 @@ typedef struct	s_vm
 	void			(*f_com[16])();
 }				t_vm;
 
-
+#define A_REG 1
+#define A_DIR 2
+#define A_IND 3
+#define A_DIR2 4
+#define ERR_FLAG -1
 
 int				read_opt(char **av, int *dump, int *id, t_player **player);
 int				read_champion(char *av, t_player **player, int *id, int num);
