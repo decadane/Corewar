@@ -14,7 +14,7 @@ int		main()
 	lst = ft_process_lst(lst, labels, 1);
 	labels = ft_collect_labels(lst);
 	lst = ft_process_lst(lst, labels, 2);
-//	print_cmd_list(lst);
+	print_cmd_list(lst);
 	res = ft_process_to_bytecode(lst, &bot_size);
 	write(1, res, bot_size);
 	free(res);

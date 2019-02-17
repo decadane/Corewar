@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 20:46:41 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 21:25:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void		ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 	char	*tmp;
 
 	i = 0;
-	*pos += cmd->size;
 	while (i < 3)
 	{
 		tmp = cmd->args[i];
@@ -98,6 +97,7 @@ static void		ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 		}
 		i++;
 	}
+	*pos += cmd->size;
 }
 
 t_list			*ft_process_lst(t_list *lst, t_list *lbl_lst, int i)
