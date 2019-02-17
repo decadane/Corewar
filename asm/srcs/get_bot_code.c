@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_funclions.c                                   :+:      :+:    :+:   */
+/*   get_bot_code.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 17:03:15 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/14 18:47:13 by ffahey           ###   ########.fr       */
+/*   Created: 2019/02/17 18:46:20 by ffahey            #+#    #+#             */
+/*   Updated: 2019/02/17 18:47:07 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	ft_del_label(void *ptr, size_t size)
+void	ft_get_bot_code(int fd, t_collect *col)
 {
-	free(((t_label*)ptr)->name);
-	ft_bzero(ptr, size);
-	free(ptr);
-}
+	t_list	*lst;
+	t_list	*labels;
 
-void	ft_free_collect(t_collect *col)
-{
-	ft_bzero(col->bot_name, sizeof(col->bot_name));
-	ft_bzero(col->bot_comment, sizeof(col->bot_comment));
-	col->bot_size = 0;
-	free(col->bot_code);
-	ft_lstdel(&col->labels, ft_del_label);
-	free(col);
+	labels = NULL;
+	lst = ft_parse_exec_code(fd);
+	lst = ft_process_lst(lst, labels, 1);
+	labels = ft_collect_labels(lst);
+	lst = ft_process_lst(lst, labels, 2);
+	ft_process_to_bytecode(lst, col);
+	ft_lstdel(&lst, ft_cmd_destroyer);
+	ft_lstdel(&labels, ft_lbl_destroyer);
 }

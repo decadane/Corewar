@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 13:02:59 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 15:20:43 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/17 18:50:15 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	ft_read_file(char *filename, t_collect *col)
 	if (fd == -1)
 		ft_putstr(strerror(errno));
 	ft_read_header(fd, col);
+	ft_get_bot_code(fd, col);
 	close(fd);
 }

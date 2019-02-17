@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:13:04 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 18:19:13 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 18:43:22 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,21 @@ static void		ft_convert_to_string(char *res, t_cmd *cmd, int *i)
 	}
 }
 
-char			*ft_process_to_bytecode(t_list *lst, unsigned *bot_size)
+void			ft_process_to_bytecode(t_list *lst, t_collect *col)
 {
-	char	*res;
 	int		i;
 	t_cmd	*cmd;
 
 	i = 0;
-	res = NULL;
-	*bot_size = ft_find_result_len(lst);
-	if (*bot_size > CHAMP_MAX_SIZE)
+	col->bot_size = ft_find_result_len(lst);
+	if (col->bot_size > CHAMP_MAX_SIZE)
 		ft_error_output("Error champ is too large");
-	if (!(res = (char*)malloc(sizeof(char) * (*bot_size + 1))))
+	if (!(col->bot_code = (char*)malloc(sizeof(char) * (col->bot_size + 1))))
 		exit(-20);
 	while (lst)
 	{
 		cmd = (t_cmd*)lst->content;
-		ft_convert_to_string(res, cmd, &i);
+		ft_convert_to_string(col->bot_code, cmd, &i);
 		lst = lst->next;
 	}
-	return (res);
 }
