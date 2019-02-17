@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 17:49:32 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 18:35:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct		s_cmd
 	char			*args[3];
 	int				pargs[3];
 	unsigned char	size;
-	int				num;
 }					t_cmd;
 
 typedef struct		s_collect

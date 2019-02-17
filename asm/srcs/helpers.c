@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 16:19:49 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 18:35:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ void		print_cmd(t_cmd *cmd)
 	printf("Parg2: %d|\n", cmd->pargs[1]);
 	printf("Parg3: %d|\n", cmd->pargs[2]);
 	printf("Size: %d\n", cmd->size);
-	printf("Num: %d\n", cmd->num);
 }
 
 void		print_cmd_list(t_list *lst)
