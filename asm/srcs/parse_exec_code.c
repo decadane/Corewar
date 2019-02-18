@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 21:59:55 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 13:36:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,24 @@ static char		*ft_parse_label(char *str, t_cmd *cmd)
 	char	*tmp;
 	size_t	i;
 
-	i = -1;
 	if (!(end_of_label = ft_strchr(str, LABEL_CHAR)))
 	{
 		cmd->label = NULL;
 		return (ft_strdup(str));
 	}
-	if (*(end_of_label - 1) == '%')
+	if (*(end_of_label - 1) == DIRECT_CHAR)
 	{
 		cmd->label = NULL;
 		return (ft_strdup(str));
 	}
 	tmp = ft_strsub(str, 0, end_of_label - str);
-	printf("%s\n", tmp);
-	while (tmp[++i])
+	i = 0;
+	while (tmp[i])
 	{
 		if (ft_strchr(LABEL_CHARS, tmp[i]) || tmp[i] == '\t')
 			i++;
 		else
-		{
-		printf("%c\n", tmp[i]);
 			ft_error_output("Error label contains forbidden char");
-		}
 	}
 	cmd->label = tmp;
 	return (ft_strdup(str + i + 1));
@@ -129,6 +125,7 @@ t_list			*ft_parse_exec_code(int fd)
 		tmp = NULL;
 		if (cmd_tmp == NULL)
 			ft_error_output("Error parse = NULL\n");
+		g_line_number++;
 	}
 	return (lst);
 }

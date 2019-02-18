@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:31:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 15:16:01 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/17 18:38:16 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ void	ft_lbl_destroyer(void *node, size_t size)
 {
 	bzero(node, size);
 	free(node);
+}
+
+void	ft_del_label(void *ptr, size_t size)
+{
+	free(((t_label*)ptr)->name);
+	ft_bzero(ptr, size);
+	free(ptr);
+}
+
+void	ft_free_collect(t_collect *col)
+{
+	ft_bzero(col->bot_name, sizeof(col->bot_name));
+	ft_bzero(col->bot_comment, sizeof(col->bot_comment));
+	col->bot_size = 0;
+	free(col->bot_code);
+	ft_lstdel(&col->labels, ft_del_label);
+	free(col);
 }

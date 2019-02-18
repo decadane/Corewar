@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_output.c                                  :+:      :+:    :+:   */
+/*   ft_min_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 16:26:06 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 13:35:24 by marvin           ###   ########.fr       */
+/*   Created: 2019/02/15 16:09:22 by ffahey            #+#    #+#             */
+/*   Updated: 2019/02/15 16:16:17 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-
-void	ft_error_output(char *str)
+int		ft_min_int(int a, int b)
 {
-	printf("%u\n", g_line_number);
-	ft_putstr(str);
-	ft_putstr(" [line ");
-	ft_putnbr((int)g_line_number);
-	ft_putstr("]\n");
-	exit(-1);
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }

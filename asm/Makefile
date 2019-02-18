@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:56:21 by marvin            #+#    #+#              #
-#    Updated: 2019/02/16 13:44:38 by marvin           ###   ########.fr        #
+#    Updated: 2019/02/17 18:29:26 by ffahey           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJ) $(LIB)
 	gcc $(FLAGS) $^ -o $@ -L../libft -lft
 
 bin/%.o: %.c $(HEADERS)
-	gcc $(FLAGS) -c $< -o $@ -Iincludes -I../libft -I..
+	gcc $(FLAGS) -c $< -o $@ -Iincludes -I.. -I../libft
 
 clean:
 	rm -rf bin/

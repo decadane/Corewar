@@ -6,32 +6,43 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 21:25:52 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 13:31:52 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static int		ft_check_endl(char *str)
+{
+	while (*str)
+	{
+		if (*str == ' ' || *str == '\t')
+			str++;
+		else if (*str == COMMENT_CHAR)
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
+}
 
 static void		ft_parse_arg(t_cmd *cmd, int i)
 {
 	char	*command;
 	int		j;
 
-	j = 0;
 	command = cmd->args[i];
+	while (*command == ' ' || *command == '\t')
+		command++;
 	if (*command == 'r' || *command == DIRECT_CHAR)
 		command++;
 	if (*command == LABEL_CHAR)
 		return ;
-	while (command[j])
-	{
-		if (ft_isdigit(command[j]) || command[j] == ' ' || command[j] == '-')
-			j++;
-		else if (command[j] == '#')
-			break ;
-		else 
+	j = *command == '-' ? 1 : 0;
+	while (command[j] && ft_isdigit(command[j]))
+		j++;
+	if (!ft_check_endl(&command[j]))
 			ft_error_output("Error forbidden char");
-	}
 	cmd->pargs[i] = ft_atoi(command);
 	free(cmd->args[i]);
 	cmd->args[i] = NULL;
