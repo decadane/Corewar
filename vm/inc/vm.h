@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 21:02:31 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 22:04:18 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_process
 {
 	int				registry[REG_NUMBER];
 	bool			carry;
+	bool			hard;
 	unsigned char	op;
 	unsigned char	op_arg;
 	unsigned char	op_clr;
