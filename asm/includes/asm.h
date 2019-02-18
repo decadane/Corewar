@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 18:34:06 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:46:27 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				ft_get_bot_code(int fd, t_collect *col);
 
 t_list				*ft_process_lst(t_list *lst, t_list *lables, int i);
 int					ft_check_endl(char *str);
-int					ft_check_arg(char *arg);
+int					ft_check_arg(char **arg);
 
 ////---------DELETE_THIS_FUNKS!!!----------
 

@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 18:28:38 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 18:29:47 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:47:02 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_init_cmd_array(char *arr[17])
 	arr[13] = "lldi";
 	arr[14] = "lfork";
 	arr[15] = "aff";
-	arr[16] = NULL;
+	arr[16] = 0x0;
 }
 
 void		ft_init_args_array(char cmds[17])

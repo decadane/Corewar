@@ -6,11 +6,13 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 13:02:59 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 18:50:15 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:59:36 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+unsigned	g_line_number = 1;
 
 void	ft_read_name(int fd, t_collect *col, unsigned char *flag)
 {

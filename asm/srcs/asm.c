@@ -6,13 +6,11 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:51:44 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 13:32:31 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:59:37 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-unsigned	g_line_number = 1;
 
 int		main(int argc, char **argv)
 {
