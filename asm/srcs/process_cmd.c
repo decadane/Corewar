@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 19:21:33 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 21:33:37 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ static void	ft_first_process_cmd(t_cmd *cmd)
 	if (cmd->opcode == 0)
 		return ;
 	while (i < 3)
-/*	{
-		if (cmd->args[i] && ft_check_arg_type(cmd, i) &&
-				i <= cmds_num[cmd->opcode - 1])
-			ft_parse_arg(cmd, i);
-		else if (i > cmds_num[cmd->opcode - 1] && cmd->args[i])
-			ft_error_output("Error arg type is forbidden");
-		else
-			cmd->codage <<= 2;
-		i++;
-	}*/
 	{
 		if (i + 1 <= cmds_num[cmd->opcode - 1] && cmd->args[i])
 		{
@@ -108,7 +98,7 @@ static void	ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 			if (*(cmd->args[i]) == LABEL_CHAR)
 				cmd->args[i]++;
 			else
-				ft_error_output("Error undefined char\n");
+				ft_error_output("Error undefined char");
 			cmd->pargs[i] = ft_find_label(cmd->args[i], lbl_lst) - *pos;
 			cmd->args[i] = NULL;
 			free(tmp);

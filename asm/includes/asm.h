@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 21:19:39 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 21:31:50 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ASM_H
 
 # include <unistd.h>
-# include <stdio.h> //DELETE!
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/types.h>
@@ -22,8 +21,6 @@
 # include <errno.h>
 # include "libft.h"
 # include "op.h"
-
-# define C(a) printf("check%d\n", a);
 
 extern unsigned		g_line_number;
 
@@ -52,18 +49,11 @@ typedef struct		s_collect
 	t_list			*labels;
 }					t_collect;
 
-//-------------kmedhurs--------------------
-////--------alloc_funcs--------------------
-
 t_cmd				*ft_cmd_creator(void);
 t_label				*ft_lbl_creator(void);
 
-////---------free_funcs--------------------
-
 void				ft_cmd_destroyer(void *lst, size_t size);
 void				ft_lbl_destroyer(void *node, size_t size);
-
-////---------init_funcs--------------------
 
 void				ft_init_cmd_array(char *arr[17]);
 void				ft_init_nums_array(int cmds[17]);
@@ -84,14 +74,6 @@ t_list				*ft_process_lst(t_list *lst, t_list *lables, int i);
 int					ft_check_endl(char *str);
 int					ft_check_arg(char **arg);
 
-////---------DELETE_THIS_FUNKS!!!----------
-
-void				print_cmd(t_cmd *cmd);
-void				print_cmd_list(t_list *lst);
-void				print_lbl(t_label *lbl);
-void				print_lbl_list(t_list *lst);
-
-//-------------ffahey--------------------
 char				*ft_check_filename(char *str);
 void				ft_error_output(char *str);
 void				ft_free_collect(t_collect *col);
