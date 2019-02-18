@@ -6,7 +6,7 @@
 #    By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 16:43:17 by ffahey            #+#    #+#              #
-#    Updated: 2019/02/15 14:05:31 by kcarrot          ###   ########.fr        #
+#    Updated: 2019/02/18 13:41:10 by kcarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c src
 vpath %.h inc
 vpath %.o obj
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 
 OBJ = $(addprefix obj/,$(notdir $(patsubst %.c,%.o,$(wildcard src/*.c))))
 

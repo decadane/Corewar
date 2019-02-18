@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 16:21:14 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 15:24:30 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void	change_endian(void *a, int size)
 		src[size] = dest[size];
 }
 
-int		read_opt(char **av, int *dump, int *id, t_player **player)
+int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 {
-	if (*(*av + 1) == 'n')
+	if (*(**av + 1) == 'n')
 	{
-		av++;
-		*id = ft_atoi(*av);
-		if (*id <= 0 || *id > MAX_PLAYERS || **av < '0' || **av > '9')
+		*id = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
+		if (*id <= 0 || *id > MAX_PLAYERS || ***av < '0' || ***av > '9')
 			return (error("Error: invalid champion's number", 0));
 		while (*player)
 		{
@@ -48,11 +47,15 @@ int		read_opt(char **av, int *dump, int *id, t_player **player)
 			player++;
 		}
 	}
+	else if (*(**av + 1) == 'a' || *(**av + 1) == 'v')
+	{
+		arena->aff = (*(**av + 1) == 'v') ? 0 : 1;
+		arena->vis = (*(**av + 1) == 'v') ? 1 : 0;
+	}
 	else
 	{
-		av++;
-		*dump = ft_atoi(*av);
-		if (*dump < 0 || **av < '0' || **av > '9')
+		arena->dump = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
+		if (arena->dump < 0 || ***av < '0' || ***av > '9')
 			return (error("Error: invalid dump", 0));
 	}
 	return (1);

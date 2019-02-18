@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_store_live.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trhogoro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:27 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 03:06:29 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/18 14:38:10 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm/inc/vm.h"
+#include "vm.h"
 
 void	cmd_live(t_vm *arena, t_process *proc)
 {
 	int	value;
+	int	i;
 
 	value = cmd_get_data(arena->map, proc->pc + 1, 4);
 	proc->pc += 5;
@@ -23,6 +24,13 @@ void	cmd_live(t_vm *arena, t_process *proc)
 		proc->last_live = arena->cycles_passed;
 		arena->cur_win_id = (short)-value;
 		arena->lives_per_cycle += 1;
+		if (arena->aff)
+		{
+			i = 0;
+			while ((arena->players)[i]->id != arena->cur_win_id)
+				i++;
+			ft_printf("A process shows that player %d (%s) is alive\n", arena->cur_win_id, (arena->players)[i]->name);
+		}
 	}
 }
 

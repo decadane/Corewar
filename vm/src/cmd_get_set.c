@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_get_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trhogoro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:10 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 03:06:11 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/18 12:13:28 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm/inc/vm.h"
+#include "vm.h"
 
 int		cmd_get_data(void *src, int start, int len)
 {
@@ -65,7 +65,7 @@ int		cmd_get_int(t_vm *arena, t_process *proc, int src_type, int *shift)
 	if ((src_type == A_DIR) && (*shift = *shift + 4))
 		return (cmd_get_data(arena->map, (proc->pc + *shift - 4) %
 		MEM_SIZE, 4));
-		if ((src_type == A_DIR2) && (*shift = *shift + 2))
+	if ((src_type == A_DIR2) && (*shift = *shift + 2))
 		return (cmd_get_data(arena->map, (proc->pc + *shift - 2) %
 		MEM_SIZE, 2));
 }

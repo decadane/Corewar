@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 17:20:02 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 14:52:52 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,24 @@ t_list		*players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 			(players[i])->prog_size, (players[i])->name, (players[i])->comment);
 		id++;
 	}
-	arena->cur_win_id = i;
+	arena->cur_win_id = i + 1;
 	return (procs);
 }
 
-void		init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
+void		init_arena(t_vm *arena, t_player **players)
 {
 	t_list			*procs;
+	int				num_of_pl;
 	int				i;
 	unsigned int	j;
 
 	ft_memset(arena->map, 0, MEM_SIZE);
 	ft_memset(arena->color_map, 0, MEM_SIZE);
-	arena->num_of_players = num_of_pl;
+	num_of_pl = arena->num_of_players;
 	arena->num_of_proc = num_of_pl;
 	arena->cycles_passed = 0;
 	arena->lives_per_cycle = 0;
 	arena->cycles_to_die = CYCLE_TO_DIE;
-	arena->dump = (dump >= 0) ? dump : -1;
 	arena->players = players;
 	procs = players_go_to_arena(arena, players, num_of_pl);
 	arena->procs = procs;

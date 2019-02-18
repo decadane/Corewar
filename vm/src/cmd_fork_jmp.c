@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_fork_jmp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trhogoro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:04 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 03:06:05 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/18 14:32:58 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm/inc/vm.h"
+#include "vm.h"
 
 void	cmd_zjmp(t_vm *arena, t_process *proc)
 {

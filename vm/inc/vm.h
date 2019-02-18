@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 17:15:35 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 15:23:05 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ typedef struct	s_vm
 	t_list			*procs;
 	void			(*f_com[16])();
 	char			aff;
+	char			vis;
 }				t_vm;
 
 # define ERR_NAMES "Error: all champions shall have different numbers"
 # define ERR_WRONG_NUM "Error: the number of the player shall be between 1 and "
-# define USAGE "./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define USAGE "./corewar [-a] [-v] [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 
 # define A_REG 1
 # define A_DIR 2
@@ -71,11 +72,10 @@ typedef struct	s_vm
 # define A_DIR2 4
 # define ERR_FLAG -1
 
-int				read_opt(char **av, int *dump, int *id, t_player **player);
+int				read_opt(char ***av, t_vm *arena, int *id, t_player **player);
 int				read_champion(char *av, t_player **player, int *id, int *num);
 
-void			init_arena(t_vm *arena, t_player **players, int num_of_pl,
-					int dump);
+void			init_arena(t_vm *arena, t_player **players);
 
 int				start_the_game(t_vm *arena);
 

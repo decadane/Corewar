@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_bool.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trhogoro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:05:58 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 03:05:59 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/18 12:11:33 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm/inc/vm.h"
+#include "vm.h"
 
 void	cmd_and(t_vm *arena, t_process *proc)
 {

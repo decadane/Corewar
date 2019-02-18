@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/16 17:20:20 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 15:25:30 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		announce_the_winner(t_vm *arena, t_player **players)
 	i = 0;
 	while (players[i]->id != arena->cur_win_id)
 		i++;
-	ft_printf("Contestant %d, \"%s\", has won !", players[i]->id,
+	ft_printf("Contestant %d, \"%s\", has won !\n", players[i]->id,
 		players[i]->name);
 }
 
@@ -50,12 +50,13 @@ int			assign_id(t_player **player, int num)
 	return (1);
 }
 
-t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
+t_player	**welcome_champions(int ac, char **av, t_vm *arena)
 {
 	int			id;
+	int			num;
 	t_player	**res;
 
-	*dump = -1;
+	arena->dump = -1;
 	id = 0;
 	res = (t_player**)malloc(sizeof(t_player*) * (MAX_PLAYERS + 1));
 	while (id < MAX_PLAYERS)
@@ -63,19 +64,21 @@ t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 	id = 0;
 	while (ac--)
 	{
-		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
+		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump") ||
+		!ft_strcmp(*av, "-a") || !ft_strcmp(*av, "-v")))
 		{
-			if (!read_opt(av, dump, &id, res))
+			if (!read_opt(&av, arena, &id, res))
 				return (free_players(res) ? NULL : NULL);
-			av++;
-			ac--;
+			if (**av != '-')
+				ac--;
 		}
-		else if (!read_champion(*av, res, &id, num))
+		else if (!read_champion(*av, res, &id, &num))
 			return (free_players(res) ? NULL : NULL);
 		av++;
 	}
-	if (!(assign_id(res, *num)))
+	if (!(assign_id(res, num)))
 		return (free_players(res) ? NULL : NULL);
+	arena->num_of_players = num;
 	return (res);
 }
 
@@ -90,22 +93,23 @@ int			main(int ac, char **av)
 {
 	t_player	**players;
 	t_vm		*arena;
-	int			num_of_pl;
-	int			dump;
 
 	if (ac == 1)
 		return (print_usage());
-	num_of_pl = 0;
-	if (!(players = welcome_champions(--ac, ++av, &dump, &num_of_pl)))
-		return (1);
-	if (!num_of_pl && free_players(players))
-		return (print_usage());
 	arena = (t_vm*)malloc(sizeof(t_vm));
-	init_arena(arena, players, num_of_pl, dump);
-	ft_print_memory(arena->map, arena->color_map, 4096);
+	arena->aff = 0;
+	arena->vis = 0;
+	if (!(players = welcome_champions(--ac, ++av, arena)))
+		return (1);
+	if (!arena->num_of_players && free_players(players))
+		return (print_usage());
+	init_arena(arena, players);
+	
+	int i = 0;
+	//ft_print_memory(arena->map, arena->color_map, 4096);
 	start_the_game(arena);
 	announce_the_winner(arena, players);
-	ft_print_memory(arena->map, arena->color_map, 4096);
+	//ft_print_memory(arena->map, arena->color_map, 4096);
 	free(arena);
 	return (0);
 }

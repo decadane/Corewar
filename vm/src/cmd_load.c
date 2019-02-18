@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_load.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trhogoro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:07:57 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 03:07:59 by trhogoro         ###   ########.fr       */
+/*   Updated: 2019/02/18 12:11:48 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm/inc/vm.h"
+#include "vm.h"
 
 void	cmd_ld(t_vm *arena, t_process *proc)
 {
