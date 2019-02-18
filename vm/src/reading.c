@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:09:32 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 21:51:29 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	change_endian(void *a, int size)
 
 int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 {
+	arena->s = *(**av + 1) == 's' ? 1 : arena->s;
 	if (*(**av + 1) == 'n')
 	{
 		*id = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
@@ -52,7 +53,7 @@ int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 		arena->aff = (*(**av + 1) == 'v') ? 0 : 1;
 		arena->vis = (*(**av + 1) == 'v') ? 1 : 0;
 	}
-	else
+	else if (*(**av + 1) == 'd')
 	{
 		arena->dump = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
 		if (arena->dump < 0 || ***av < '0' || ***av > '9')
@@ -92,8 +93,7 @@ int		read_champion(char *av, t_player **player, int *id, t_vm *arena)
 
 	if (arena->num_of_players >= MAX_PLAYERS)
 		return (error("Error: too many champions", 0));
-	i = 0;
-	arena->num_of_players += 1;
+	i = (arena->num_of_players += 1) ? 0 : 0;
 	while (av[i])
 		i++;
 	if ((!(size = 0)) && ft_strcmp(av + i - 4, ".cor"))
@@ -110,5 +110,6 @@ int		read_champion(char *av, t_player **player, int *id, t_vm *arena)
 	if (!size || size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
 		return (error2("Error: champion ", av, " is of wrong size"));
 	player[i]->id = *id;
+	player[i]->tot_lives = 0;
 	return (!(*id = 0));
 }

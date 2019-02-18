@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:50:19 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 21:06:02 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		init_arena(t_vm *arena, t_player **players)
 	ft_memset(arena->color_map, 0, MEM_SIZE);
 	num_of_pl = arena->num_of_players;
 	arena->num_of_proc = num_of_pl;
+	arena->max_procs = num_of_pl;
 	arena->cycles_passed = 0;
 	arena->lives_per_cycle = 0;
 	arena->cycles_to_die = CYCLE_TO_DIE;

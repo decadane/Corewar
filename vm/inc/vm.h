@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:14:51 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 21:02:31 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_player
 	char			comment[COMMENT_LENGTH + 1];
 	char			code[CHAMP_MAX_SIZE];
 	unsigned int	prog_size;
+	unsigned int	tot_lives;
 }				t_player;
 
 typedef struct	s_process
@@ -50,6 +51,7 @@ typedef struct	s_vm
 	unsigned char	color_map[MEM_SIZE];
 	short			num_of_players;
 	unsigned int	num_of_proc;
+	unsigned int	max_procs;
 	short			cur_win_id;
 	unsigned int	cycles_passed;
 	unsigned int	lives_per_cycle;
@@ -60,6 +62,7 @@ typedef struct	s_vm
 	void			(*f_com[16])();
 	char			aff;
 	char			vis;
+	char			s;
 }				t_vm;
 
 # define ERR_NAMES "Error: all champions shall have different numbers"
@@ -115,4 +118,6 @@ void			cmd_aff(t_vm *arena, t_process *proc);
 
 void			ft_print_memory(unsigned char *mem, unsigned char *colors,
 					size_t size);
+void			ft_print_stat(t_vm *arena);
+
 #endif

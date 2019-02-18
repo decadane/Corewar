@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:27 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 17:19:05 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 21:02:44 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ void	cmd_live(t_vm *arena, t_process *proc)
 	{
 		arena->cur_win_id = (short)-value;
 		arena->lives_per_cycle += 1;
+		i = 0;
+		while ((arena->players)[i]->id != arena->cur_win_id)
+			i++;
+		(arena->players)[i]->tot_lives++;
 		if (arena->aff)
-		{
-			i = 0;
-			while ((arena->players)[i]->id != arena->cur_win_id)
-				i++;
 			ft_printf("A process shows that player %d (%s) is alive\n",
 				arena->cur_win_id, (arena->players)[i]->name);
-		}
 	}
 }
 
