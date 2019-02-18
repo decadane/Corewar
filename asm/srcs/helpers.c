@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/17 20:08:43 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 14:11:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,12 @@ char		*ft_trim_and_exec_cmd(char *(*funk)(char *str, t_cmd *cmd),
 {
 	char	*tmp;
 
-	tmp = str;
-	str = ft_strtrim(str);
-	free(tmp);
+	if (str && *str != '\0')
+	{
+		tmp = str;
+		str = ft_strtrim(str);
+		free(tmp);
+	}
 	tmp = str;
 	str = funk(str, cmd);
 	free(tmp);

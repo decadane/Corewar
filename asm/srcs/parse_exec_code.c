@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 15:07:02 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 15:26:17 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char		*ft_parse_label(char *str, t_cmd *cmd)
 	i = 0;
 	while (tmp[i])
 	{
-		if (ft_strchr(LABEL_CHARS, tmp[i]))
+		if (ft_strchr(LABEL_CHARS, tmp[i]) || tmp[i] == '\t')
 			i++;
 		else
 			ft_error_output("Error label contains forbidden char");
@@ -54,15 +54,18 @@ static char		*ft_parse_cmds(char *str, t_cmd *cmd)
 		if ((str[i] == ' ' || str[i] == '\t' || str[i] == '%') &&
 				(end_of_cmd = str + i))
 			break ;
-//	if (!end_of_cmd) Error not cmd
 	i = -1;
+	if (!end_of_cmd)
+	{
+		cmd->size = 0;
+		return (NULL);
+	}
 	tmp = ft_strsub(str, 0, end_of_cmd - str);
 	ft_init_cmd_array(cmds);
 	while (cmds[++i])
 		if (!ft_strcmp(cmds[i], tmp))
 			cmd->opcode = i + 1;
-	if (cmd->opcode == 0)
-		ft_error_output("Error false cmd");
+	(cmd->opcode == 0) ? (ft_error_output("Error false cmd")) : 0;
 	free(tmp);
 	return (ft_strdup(end_of_cmd + 1));
 }
@@ -125,7 +128,8 @@ static t_cmd	*ft_parse_line(char *str)
 	cmd = ft_cmd_creator();
 	str = ft_trim_and_exec_cmd(ft_parse_label, str, cmd);
 	str = ft_trim_and_exec_cmd(ft_parse_cmds, str, cmd);
-	str = ft_trim_and_exec_cmd(ft_parse_args, str, cmd);
+	if (str)
+		str = ft_trim_and_exec_cmd(ft_parse_args, str, cmd);
 	return (cmd);
 }
 
