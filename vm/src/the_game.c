@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 13:46:30 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:02:59 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,20 @@ void	kill_dead_procs(t_list **procs, unsigned int rubicone)
 	}
 }
 
+void	round_check(t_vm *arena, int *checks)
+{
+	kill_dead_procs(&(arena->procs), (arena->cycles_passed -
+		arena->cycles_to_die));
+	if (arena->lives_per_cycle > NBR_LIVE || checks >= MAX_CHECKS)
+	{
+		arena->cycles_to_die = arena->cycles_to_die < CYCLE_DELTA ? 0 :
+			arena->cycles_to_die - CYCLE_DELTA;
+		*checks = 0;
+	}
+	else
+		(*checks)++;
+}
+
 int		start_the_game(t_vm *arena)
 {
 	unsigned int	cycl_count;
@@ -97,45 +111,10 @@ int		start_the_game(t_vm *arena)
 			if (!arena->dump)
 			{
 				ft_print_memory(arena->map, arena->color_map, 4096);
-				exit (0);
+				exit(0);
 			}
 		}
-		kill_dead_procs(&(arena->procs), (arena->cycles_passed -
-			arena->cycles_to_die));
-		if (arena->lives_per_cycle > NBR_LIVE || checks >= MAX_CHECKS)
-		{
-			arena->cycles_to_die = arena->cycles_to_die < CYCLE_DELTA ? 0 :
-				arena->cycles_to_die - CYCLE_DELTA;
-			checks = 0;
-		}
-		else
-			checks++;
+		round_check(arena, &checks);
 	}
 	return (0);
-}
-
-void	ft_print_memory(unsigned char *mem, unsigned char *colors, size_t size)
-{
-	int				i;
-	unsigned char	color;
-
-	color = 0;
-	i = -1;
-	while (++i < size)
-	{
-		if (colors[i] != color)
-		{
-			color = colors[i];
-			(!color) ? write(1, "\033[0m", 4) : (void)0;
-			(color == 1) ? write(1, "\033[31m", 5) : (void)0;
-			(color == 2) ? write(1, "\033[32m", 5) : (void)0;
-			(color == 3) ? write(1, "\033[33m", 5) : (void)0;
-			(color == 4) ? write(1, "\033[34m", 5) : (void)0;
-		}
-		ft_putchar((*mem >> 4) + ((*mem >> 4) > 9 ? 'A' - 10 : '0'));
-		ft_putchar((*mem & 0xf) + ((*mem & 0xf) > 9 ? 'A' - 10 : '0'));
-		ft_putchar(' ');
-		mem++;
-		(!((i + 1) % 64)) ? ft_putendl("") : (void)0;
-	}
 }

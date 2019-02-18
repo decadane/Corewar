@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 15:24:30 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:09:32 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ int		read_champion_header(char *av, t_player **player, int fd)
 	return (1);
 }
 
-int		read_champion(char *av, t_player **player, int *id, int *num)
+int		read_champion(char *av, t_player **player, int *id, t_vm *arena)
 {
 	int				fd;
 	int				i;
 	unsigned int	size;
 
-	if (*num >= MAX_PLAYERS)
+	if (arena->num_of_players >= MAX_PLAYERS)
 		return (error("Error: too many champions", 0));
 	i = 0;
-	*num = *num + 1;
+	arena->num_of_players += 1;
 	while (av[i])
 		i++;
 	if ((!(size = 0)) && ft_strcmp(av + i - 4, ".cor"))

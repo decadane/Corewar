@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:10 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 12:13:28 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:00:10 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		cmd_get_int(t_vm *arena, t_process *proc, int src_type, int *shift)
 	if ((src_type == A_DIR) && (*shift = *shift + 4))
 		return (cmd_get_data(arena->map, (proc->pc + *shift - 4) %
 		MEM_SIZE, 4));
-	if ((src_type == A_DIR2) && (*shift = *shift + 2))
+		if ((src_type == A_DIR2) && (*shift = *shift + 2))
 		return (cmd_get_data(arena->map, (proc->pc + *shift - 2) %
 		MEM_SIZE, 2));
 }
