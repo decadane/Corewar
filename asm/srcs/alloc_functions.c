@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:51:01 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/17 19:29:52 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:21:52 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_collect	*ft_create_collect(void)
 	return (col);
 }
 
-t_label	*ft_lbl_creator(void)
+t_label		*ft_lbl_creator(void)
 {
 	t_label	*lbl;
 
@@ -36,7 +36,7 @@ t_label	*ft_lbl_creator(void)
 	return (lbl);
 }
 
-t_cmd	*ft_cmd_creator(void)
+t_cmd		*ft_cmd_creator(void)
 {
 	t_cmd	*cmd;
 

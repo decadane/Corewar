@@ -6,27 +6,13 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 17:16:01 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:32:18 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_check_endl(char *str)
-{
-	while (*str)
-	{
-		if (*str == ' ' || *str == '\t')
-			str++;
-		else if (*str == COMMENT_CHAR)
-			return (1);
-		else
-			return (0);
-	}
-	return (1);
-}
-
-static void		ft_parse_arg(t_cmd *cmd, int i)
+static void	ft_parse_arg(t_cmd *cmd, int i)
 {
 	char	*command;
 	int		j;
@@ -42,13 +28,13 @@ static void		ft_parse_arg(t_cmd *cmd, int i)
 	while (command[j] && ft_isdigit(command[j]))
 		j++;
 	if (!ft_check_endl(&command[j]))
-			ft_error_output("Error forbidden char");
+		ft_error_output("Error forbidden char");
 	cmd->pargs[i] = ft_atoi(command);
 	free(cmd->args[i]);
 	cmd->args[i] = NULL;
 }
 
-static void		ft_first_process_cmd(t_cmd *cmd)
+static void	ft_first_process_cmd(t_cmd *cmd)
 {
 	char	cmds[17];
 	int		i;
@@ -70,7 +56,7 @@ static void		ft_first_process_cmd(t_cmd *cmd)
 	}
 }
 
-static int		ft_find_label(char *str, t_list *lbl_lst)
+static int	ft_find_label(char *str, t_list *lbl_lst)
 {
 	t_label	*lbl;
 
@@ -85,7 +71,7 @@ static int		ft_find_label(char *str, t_list *lbl_lst)
 	return (0);
 }
 
-static void		ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
+static void	ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 {
 	int		i;
 	char	*tmp;
@@ -111,7 +97,7 @@ static void		ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 	*pos += cmd->size;
 }
 
-t_list			*ft_process_lst(t_list *lst, t_list *lbl_lst, int i)
+t_list		*ft_process_lst(t_list *lst, t_list *lbl_lst, int i)
 {
 	t_cmd	*cmd;
 	t_list	*head;
