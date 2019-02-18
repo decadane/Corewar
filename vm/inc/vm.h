@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:11:16 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:14:51 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int				error(char *str, char *param);
 int				error2(char *str, char *param, char *str2);
 
 int				free_players(t_player **res);
+void			free_arena(t_vm *arena);
 
 void			init_commands_array(t_vm *arena);
 void			exec_command (t_vm *arena, t_process *proc);

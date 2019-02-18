@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:10:42 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:14:35 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int			main(int ac, char **av)
 	announce_the_winner(arena, players);
 	if (arena->vis)
 		ft_print_memory(arena->map, arena->color_map, 4096);
-	free(arena);
+	free_arena(arena);
 	return (0);
 }
