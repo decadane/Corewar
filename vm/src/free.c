@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int     free_players(t_player **res)
+int		free_players(t_player **res)
 {
 	int i;
 

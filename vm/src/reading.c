@@ -44,7 +44,7 @@ int		read_opt(char **av, int *dump, int *id, t_player **player)
 		while (*player)
 		{
 			if ((*player)->id == *id)
-				return (error("Error: all champions shall have different numbers", 0));
+				return (error(ERR_NAMES, 0));
 			player++;
 		}
 	}
@@ -65,34 +65,35 @@ int		read_champion_header(char *av, t_player **player, int fd)
 
 	read(fd, &magic, 4);
 	if (magic != MAGIC)
-		return(error2("Error: File ", av, " has an invalid header"));
+		return (error2("Error: File ", av, " has an invalid header"));
 	new_pl = (t_player*)malloc(sizeof(t_player));
 	read(fd, new_pl->name, PROG_NAME_LENGTH);
 	read(fd, &magic, 4);
 	if (magic != 0)
-		return(error2("Error: File ", av, " has an invalid header"));
+		return (error2("Error: File ", av, " has an invalid header"));
 	read(fd, &(new_pl->prog_size), 4);
 	change_endian(&(new_pl->prog_size), 4);
 	read(fd, new_pl->comment, COMMENT_LENGTH);
 	read(fd, &magic, 4);
 	if (magic != 0)
-		return(error2("Error: File ", av, " has an invalid header"));
+		return (error2("Error: File ", av, " has an invalid header"));
 	*player = new_pl;
 	return (1);
 }
 
-int		read_champion(char *av, t_player **player, int *id, int num)
+int		read_champion(char *av, t_player **player, int *id, int *num)
 {
 	int				fd;
 	int				i;
 	unsigned int	size;
 
-	if (num >= MAX_PLAYERS)
+	if (*num >= MAX_PLAYERS)
 		return (error("Error: too many champions", 0));
 	i = 0;
+	*num = *num + 1;
 	while (av[i])
 		i++;
-	if (ft_strcmp(av + i - 4, ".cor"))
+	if ((!(size = 0)) && ft_strcmp(av + i - 4, ".cor"))
 		return (error("Error: the source files shall have .cor extension", 0));
 	if ((fd = open(av, O_RDONLY)) == -1)
 		return (error("Error: can't read source file ", av));
@@ -101,12 +102,10 @@ int		read_champion(char *av, t_player **player, int *id, int num)
 		i++;
 	if (!read_champion_header(av, &(player[i]), fd))
 		return (0);
-	size = 0;
 	while (read(fd, &((player[i]->code)[size]), 1) && size <= CHAMP_MAX_SIZE)
 		size++;
 	if (!size || size > CHAMP_MAX_SIZE || size != player[i]->prog_size)
 		return (error2("Error: champion ", av, " is of wrong size"));
 	player[i]->id = *id;
-	*id = 0;
-	return (1);
+	return (!(*id = 0));
 }

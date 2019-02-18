@@ -19,10 +19,11 @@ void		announce_the_winner(t_vm *arena, t_player **players)
 	i = 0;
 	while (players[i]->id != arena->cur_win_id)
 		i++;
-	ft_printf("Contestant %d, \"%s\", has won !", players[i]->id , players[i]->name);
+	ft_printf("Contestant %d, \"%s\", has won !", players[i]->id,
+		players[i]->name);
 }
 
-int			assign_id(t_player	**player, int num)
+int			assign_id(t_player **player, int num)
 {
 	int i;
 	int j;
@@ -40,7 +41,7 @@ int			assign_id(t_player	**player, int num)
 				continue ;
 			}
 		if ((player[i]->id) > num)
-			return(error("Error: the number of the player shall be between 1 and ", ft_itoa(num)));
+			return (error(ERR_WRONG_NUM, ft_itoa(num)));
 		if (!(player[i]->id))
 			player[i]->id = id++;
 		player[i]->start_point = (player[i]->id - 1) * MEM_SIZE / num;
@@ -65,30 +66,27 @@ t_player	**welcome_champions(int ac, char **av, int *dump, int *num)
 		if (**av == '-' && (!ft_strcmp(*av, "-n") || !ft_strcmp(*av, "-dump")))
 		{
 			if (!read_opt(av, dump, &id, res))
-				return free_players(res) ? NULL : NULL;
+				return (free_players(res) ? NULL : NULL);
 			av++;
 			ac--;
 		}
-		else
-		{
-			if (!read_champion(*av, res, &id, *num))
-				return free_players(res) ? NULL : NULL;
-			(*num)++;
-		}
+		else if (!read_champion(*av, res, &id, num))
+			return (free_players(res) ? NULL : NULL);
 		av++;
 	}
 	if (!(assign_id(res, *num)))
-		return free_players(res) ? NULL : NULL;
+		return (free_players(res) ? NULL : NULL);
 	return (res);
 }
 
-static int  print_usage(void)
+static int	print_usage(void)
 {
-	ft_putendl("Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...");
+	ft_putstr("Usage: ");
+	ft_putendl(USAGE);
 	return (0);
 }
 
-int         main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_player	**players;
 	t_vm		*arena;
@@ -104,8 +102,10 @@ int         main(int ac, char **av)
 		return (print_usage());
 	arena = (t_vm*)malloc(sizeof(t_vm));
 	init_arena(arena, players, num_of_pl, dump);
+	ft_print_memory(arena->map, arena->color_map, 4096);
 	start_the_game(arena);
 	announce_the_winner(arena, players);
+	ft_print_memory(arena->map, arena->color_map, 4096);
 	free(arena);
 	return (0);
 }

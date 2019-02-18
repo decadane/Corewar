@@ -12,7 +12,8 @@
 
 #include "vm.h"
 
-void	add_process(t_list **procs, t_player *player, t_process *parent, int place)
+void		add_process(t_list **procs, t_player *player, t_process *parent,
+			int place)
 {
 	t_list		*res;
 	t_process	*new;
@@ -27,22 +28,20 @@ void	add_process(t_list **procs, t_player *player, t_process *parent, int place)
 			(new->registry)[i++] = 0;
 	}
 	else if (parent)
-		while (i < REG_NUMBER)
-		{
-			(new->registry)[i] = (parent->registry)[i];
-			i++;
-		}
+		while (i++ < REG_NUMBER)
+			(new->registry)[i - 1] = (parent->registry)[i - 1];
 	new->carry = parent ? parent->carry : false;
 	new->last_live = parent ? parent->last_live : 0;
-	new->where_am_i = parent ? (parent->where_am_i + place) : player->start_point;
+	new->pc = parent ? (parent->pc + place) : player->start_point;
 	new->cycles_to_act = 0;
 	res = (t_list*)malloc(sizeof(t_list));
 	res->content = new;
-	res->next = *procs;
-	procs = &res;
+	res->content_size = sizeof(t_process);
+	res->next = 0x0;
+	ft_lstradd(procs, res);
 }
 
-t_list *players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
+t_list		*players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 {
 	t_list			*procs;
 	int				i;
@@ -60,25 +59,22 @@ t_list *players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 		start = &((arena->map)[players[i]->start_point]);
 		ft_memcpy(start, (players[i])->code, (players[i])->prog_size);
 		add_process(&procs, players[i], 0, 0);
-		ft_printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id, (players[i])->prog_size, (players[i])->name, (players[i])->comment);
+		ft_printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id,
+			(players[i])->prog_size, (players[i])->name, (players[i])->comment);
 		id++;
 	}
 	arena->cur_win_id = i;
 	return (procs);
 }
 
-void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
+void		init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 {
-	t_list	*procs;
+	t_list			*procs;
 	int				i;
 	unsigned int	j;
 
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		arena->map[i] = 0;
-		arena->color_map[i++] = 0;
-	}
+	ft_memset(arena->map, 0, MEM_SIZE);
+	ft_memset(arena->color_map, 0, MEM_SIZE);
 	arena->num_of_players = num_of_pl;
 	arena->num_of_proc = num_of_pl;
 	arena->cycles_passed = 0;
@@ -95,4 +91,5 @@ void	init_arena(t_vm *arena, t_player **players, int num_of_pl, int dump)
 		while (j++ < (players[num_of_pl])->prog_size)
 			arena->color_map[i++] = (players[num_of_pl])->id;
 	}
+	init_commands_array(arena);
 }
