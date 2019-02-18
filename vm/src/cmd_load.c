@@ -19,10 +19,10 @@ void	cmd_ld(t_vm *arena, t_process *proc)
 	char	is_dir;
 
 	if (((proc->op_arg >> 6) == A_DIR) && (((proc->op_arg >> 4) &
-		0x3) == A_REG) && (!(proc->op_arg & 0xf)))
+		0x3) == A_REG))
 		is_dir = 1;
 	else if (((proc->op_arg >> 6) == A_IND) && (((proc->op_arg >> 4)
-		& 0x3) == A_REG) && (!(proc->op_arg & 0xf)))
+		& 0x3) == A_REG))
 		is_dir = 0;
 	else
 		return (wrong_argument(proc));
@@ -44,8 +44,7 @@ void	cmd_ldi(t_vm *arena, t_process *proc)
 
 	if (!(proc->op_arg >> 6) || !((proc->op_arg >> 4) & 0x3) ||
 		(((proc->op_arg >> 4) & 0x3) == A_IND) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	shift = 2;
 	value = (short)(cmd_get_int(arena, proc, (proc->op_arg >> 6) == A_DIR
@@ -71,10 +70,10 @@ void	cmd_lld(t_vm *arena, t_process *proc)
 	char	is_dir;
 
 	if (((proc->op_arg >> 6) == A_DIR) && (((proc->op_arg >> 4) &
-		0x3) == A_REG) && (!(proc->op_arg & 0xf)))
+		0x3) == A_REG))
 		is_dir = 1;
 	else if (((proc->op_arg >> 6) == A_IND) && (((proc->op_arg >> 4) &
-		0x3) == A_REG) && (!(proc->op_arg & 0xf)))
+		0x3) == A_REG))
 		is_dir = 0;
 	else
 		return (wrong_argument(proc));
@@ -96,8 +95,7 @@ void	cmd_lldi(t_vm *arena, t_process *proc)
 
 	if (!(proc->op_arg >> 6) || !((proc->op_arg >> 4) & 0x3) ||
 		(((proc->op_arg >> 4) & 0x3) == A_IND) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	shift = 2;
 	value = (short)(cmd_get_int(arena, proc, (proc->op_arg >> 6) == A_DIR ?

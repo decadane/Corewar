@@ -19,6 +19,8 @@ int		cmd_get_data(void *src, int start, int len)
 
 	i = len;
 	result = 0;
+	while (start < 0)
+		start+=MEM_SIZE;
 	while (i)
 	{
 		result *= 256;
@@ -33,12 +35,16 @@ void	cmd_set_data(char *dst, int start, char *src, int len)
 	int i;
 
 	i = len;
+	while (start < 0)
+		start+=MEM_SIZE;
 	while (i--)
 		*(dst + (start + i) % MEM_SIZE) = *src++;
 }
 
 void	cmd_set_color(char *dst, int start, char color, int len)
 {
+	while (start < 0)
+		start+=MEM_SIZE;
 	while (len--)
 		*(dst + (start + len) % MEM_SIZE) = color;
 }
@@ -75,7 +81,7 @@ void	cmd_aff(t_vm *arena, t_process *proc)
 	char	value;
 	int		reg;
 
-	if (proc->op_arg != 0x40)
+	if (((proc->op_arg >> 6) & 0x3) != 0x01)
 		return (wrong_argument(proc));
 	reg = cmd_get_data(arena->map, proc->pc + 2, 1);
 	if (reg <= 0 || reg > REG_NUMBER)

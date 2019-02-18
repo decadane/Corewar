@@ -20,8 +20,7 @@ void	cmd_add(t_vm *arena, t_process *proc)
 
 	if (((proc->op_arg >> 6) != A_REG) ||
 		(((proc->op_arg >> 4) & 0x3) != A_REG) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	reg1 = cmd_get_data(arena->map, proc->pc + 2, 1);
 	reg2 = cmd_get_data(arena->map, proc->pc + 3, 1);
@@ -43,8 +42,7 @@ void	cmd_sub(t_vm *arena, t_process *proc)
 
 	if (((proc->op_arg >> 6) != A_REG) ||
 		(((proc->op_arg >> 4) & 0x3) != A_REG) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	reg1 = cmd_get_data(arena->map, proc->pc + 2, 1);
 	reg2 = cmd_get_data(arena->map, proc->pc + 3, 1);

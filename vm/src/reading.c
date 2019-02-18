@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 21:51:29 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 22:06:05 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 			return (error("Error: invalid champion's number", 0));
 		while (*player)
 		{
-			if ((*player)->id == *id)
+			if ((*player)->id == *id && player++)
 				return (error(ERR_NAMES, 0));
 			player++;
 		}
