@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 18:44:39 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 19:21:02 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,12 @@ static char		*ft_parse_cmds(char *str, t_cmd *cmd)
 	i = -1;
 	end_of_cmd = NULL;
 	while (str[++i])
-		if ((str[i] == ' ' || str[i] == '\t' || str[i] == '%') &&
-				(end_of_cmd = str + i))
+		if ((str[i] == ' ' || str[i] == '\t' || str[i] == '%' ||
+					str[i] == '\n') && (end_of_cmd = str + i))
 			break ;
 	i = -1;
 	if (!end_of_cmd)
-	{
-		cmd->size = 0;
-		return (NULL);
-	}
+		return (ft_label_or_cmd(cmd));
 	tmp = ft_strsub(str, 0, end_of_cmd - str);
 	ft_init_cmd_array(cmds);
 	while (cmds[++i])
@@ -107,6 +104,8 @@ static t_cmd	*ft_parse_line(char *str)
 	str = ft_trim_and_exec_cmd(ft_parse_cmds, str, cmd);
 	if (str)
 		str = ft_trim_and_exec_cmd(ft_parse_args, str, cmd);
+	if (cmd->opcode != 0 && !cmd->args[0])
+		ft_error_output("Error command without arguments");
 	return (cmd);
 }
 

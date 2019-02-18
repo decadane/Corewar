@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 18:44:18 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 19:20:49 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ unsigned	ft_find_result_len(t_list *lst)
 		lst = lst->next;
 	}
 	return (res);
+}
+
+char		*ft_label_or_cmd(t_cmd *cmd)
+{
+	if (cmd->label)
+		cmd->size = 0;
+	else
+		ft_error_output("Error command without arguments");
+	return (NULL);
 }
