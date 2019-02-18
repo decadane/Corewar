@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 15:07:47 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 17:16:01 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_list			*ft_process_lst(t_list *lst, t_list *lbl_lst, int i)
 		else
 			ft_second_process_cmd((t_cmd*)lst->content, lbl_lst, &pos);
 		lst = lst->next;
+		g_line_number++;
 	}
 	return (head);
 }
