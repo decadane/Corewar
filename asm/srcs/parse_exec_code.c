@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 13:31:15 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 15:07:02 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,47 @@ static char		*ft_parse_cmds(char *str, t_cmd *cmd)
 	return (ft_strdup(end_of_cmd + 1));
 }
 
+static int		ft_check_arg(char **arg)
+{
+	char *end_arg;
+	char *new_arg;
+
+	end_arg = *arg;
+	if (*end_arg == DIRECT_CHAR)
+		end_arg++;
+	if (*end_arg == LABEL_CHAR || *end_arg == '-')
+		end_arg++;
+	while (*end_arg && ft_strchr(LABEL_CHARS, *end_arg))
+		end_arg++;
+	if (ft_check_endl(end_arg))
+	{
+		new_arg = ft_strsub(*arg, 0, end_arg - *arg);
+		free(*arg);
+		*arg = new_arg;
+		return (1);
+	}
+	else
+		return (0);
+}
+
 static char		*ft_parse_args(char *str, t_cmd *cmd)
 {
 	char	**args;
 	int		i;
 	char	*tmp;
-	char	*tmp2;
+	char	*arg;
 
 	i = 0;
 	tmp = str;
 	args = ft_strsplit(str, SEPARATOR_CHAR);
 	while (args[i])
 	{
-		tmp2 = args[i];
-		args[i] = ft_strtrim(args[i]);
-		free(tmp2);
-		cmd->args[i] = args[i];
+		arg = args[i];
+		arg = ft_strtrim(args[i]);
+		free(args[i]);
+		if (ft_check_arg(&arg) == 0)
+			ft_error_output("Invalig argument");
+		cmd->args[i] = arg;
 		if ((tmp = ft_strchr(tmp, SEPARATOR_CHAR)))
 			tmp++;
 		i++;

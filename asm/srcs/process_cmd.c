@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 13:31:52 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 15:07:47 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int		ft_check_endl(char *str)
+int		ft_check_endl(char *str)
 {
 	while (*str)
 	{
@@ -81,7 +81,7 @@ static int		ft_find_label(char *str, t_list *lbl_lst)
 			return (lbl->offset);
 		lbl_lst = lbl_lst->next;
 	}
-	ft_error_output("Error undefined label\n");
+	ft_error_output("Error undefined label");
 	return (0);
 }
 
@@ -96,9 +96,9 @@ static void		ft_second_process_cmd(t_cmd *cmd, t_list *lbl_lst, int *pos)
 		tmp = cmd->args[i];
 		if (cmd->args[i])
 		{
-			if (*(cmd->args[i]) == '%')
+			if (*(cmd->args[i]) == DIRECT_CHAR)
 				cmd->args[i]++;
-			if (*(cmd->args[i]) == ':')
+			if (*(cmd->args[i]) == LABEL_CHAR)
 				cmd->args[i]++;
 			else
 				ft_error_output("Error undefined char\n");
