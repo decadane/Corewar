@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 19:14:52 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 19:56:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static char		*ft_parse_label(char *str, t_cmd *cmd)
 {
-	char	*end_of_label;
-	char	*tmp;
+//	char	*end_of_label;
+//	char	*tmp;
 	size_t	i;
-
+/*
 	if (!(end_of_label = ft_strchr(str, LABEL_CHAR)))
 	{
 		cmd->label = NULL;
 		return (ft_strdup(str));
 	}
-	if (*(end_of_label - 1) == DIRECT_CHAR)
+	if (*(end_of_label - 1) == DIRECT_CHAR || *(end_of_label - 1) == ' ')
 	{
 		cmd->label = NULL;
 		return (ft_strdup(str));
@@ -38,7 +38,26 @@ static char		*ft_parse_label(char *str, t_cmd *cmd)
 			ft_error_output("Error label contains forbidden char");
 	}
 	cmd->label = tmp;
-	return (ft_strdup(str + i + 1));
+	return (ft_strdup(str + i + 1));*/
+	while (*str == ' ' || *str == '\t')
+		str++;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(LABEL_CHARS, str[i]))
+			i++;
+		else
+		{
+			if (str[i] == LABEL_CHAR)
+			{
+				cmd->label = ft_strsub(str, 0, i);
+				return (ft_strdup(str + i + 1));
+			}
+			else
+				return (ft_strdup(str));
+		}
+	}
+	return (ft_strdup(str));
 }
 
 static char		*ft_parse_cmds(char *str, t_cmd *cmd)
@@ -138,10 +157,13 @@ t_list			*ft_parse_exec_code(int fd)
 	t_list	*lst;
 	t_list	*tmp;
 	t_cmd	*cmd_tmp;
+	char	*c;
 
 	lst = NULL;
 	while (get_next_line(fd, &str))
 	{
+		if ((c = ft_strchr(str, COMMENT_CHAR)))
+			*c = '\0';
 		if (!ft_check_comment(str) && (cmd_tmp = ft_parse_line(str)))
 		{
 			tmp = ft_lstnew(cmd_tmp, sizeof(t_cmd));
