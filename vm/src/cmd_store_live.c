@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:27 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 22:14:20 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 22:23:28 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	cmd_st(t_vm *arena, t_process *proc)
 		return ;
 	}
 	value = ((short)cmd_get_data(arena->map, proc->pc + 3, 2)) % IDX_MOD;
-	cmd_set_data(arena->map, (proc->pc + value) % MEM_SIZE,
+	cmd_set_data((char *)arena->map, (proc->pc + value) % MEM_SIZE,
 	(char *)(&(proc->registry[from - 1])), 4);
-	cmd_set_color(arena->color_map, (proc->pc + value) % MEM_SIZE,
+	cmd_set_color((char *)arena->color_map, (proc->pc + value) % MEM_SIZE,
 		proc->op_clr, 4);
 	proc->pc = (unsigned short)((proc->pc + 5) % MEM_SIZE);
 }
@@ -85,9 +85,9 @@ void	cmd_sti(t_vm *arena, t_process *proc)
 		== A_DIR ? A_DIR2 : A_REG, &shift)) % IDX_MOD;
 	if (shift == -1)
 		return (wrong_argument(proc));
-	cmd_set_data(arena->map, (proc->pc + value) % MEM_SIZE,
+	cmd_set_data((char *)arena->map, (proc->pc + value) % MEM_SIZE,
 		(char *)(&(proc->registry[reg - 1])), 4);
-	cmd_set_color(arena->color_map, (proc->pc + value) % MEM_SIZE,
+	cmd_set_color((char *)arena->color_map, (proc->pc + value) % MEM_SIZE,
 		arena->color_map[proc->pc], 4);
 	proc->pc = (unsigned short)((proc->pc + shift) % MEM_SIZE);
 }

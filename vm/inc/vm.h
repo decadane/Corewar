@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 22:04:18 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 22:24:44 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void			cmd_lfork(t_vm *arena, t_process *proc);
 void			cmd_aff(t_vm *arena, t_process *proc);
 
 void			ft_print_memory(unsigned char *mem, unsigned char *colors,
-					size_t size);
+					int size);
 void			ft_print_stat(t_vm *arena);
 
 #endif
