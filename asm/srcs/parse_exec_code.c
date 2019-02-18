@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 18:34:16 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:44:39 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char		*ft_parse_cmds(char *str, t_cmd *cmd)
 			cmd->opcode = i + 1;
 	(cmd->opcode == 0) ? (ft_error_output("Error false cmd")) : 0;
 	free(tmp);
-	return (ft_strdup(end_of_cmd + 1));
+	return (ft_strdup(end_of_cmd));
 }
 
 static char		*ft_parse_args(char *str, t_cmd *cmd)
@@ -86,7 +86,7 @@ static char		*ft_parse_args(char *str, t_cmd *cmd)
 		arg = ft_strtrim(args[i]);
 		free(args[i]);
 		if (ft_check_arg(&arg) == 0)
-			ft_error_output("Invalig argument");
+			ft_error_output("Invalid argument");
 		cmd->args[i] = arg;
 		if ((tmp = ft_strchr(tmp, SEPARATOR_CHAR)))
 			tmp++;
