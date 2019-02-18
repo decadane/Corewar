@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 16:18:18 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:52:50 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_command(t_vm *arena, t_process *proc)
 		return ;
 	}
 	proc->op = (arena->map)[place];
-	proc->op_clr = (arena->color_map)[place];
+	//proc->op_clr = (arena->color_map)[place];
 	proc->cycles_to_act = g_cyc_to_act[proc->op - 1];
 }
 
@@ -107,6 +107,8 @@ int		start_the_game(t_vm *arena)
 		{
 			new_cycle(arena);
 			arena->cycles_passed++;
+			if (arena->cycles_passed == 237)
+				printf("\nHERE: %d, %d\n", ((t_process*)(arena->procs->next->content))->op, ((t_process*)(arena->procs->next->content))->registry[4]);
 			--(arena->dump);
 			if (!arena->dump)
 			{
