@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 18:36:36 by marvin           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:54:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void		ft_first_process_cmd(t_cmd *cmd)
 	i = 0;
 	ft_init_args_array(cmds);
 	ft_init_nums_array(cmds_num);
+	if (cmd->opcode == 0)
+		return ;
 	while (i < 3)
 /*	{
 		if (cmd->args[i] && ft_check_arg_type(cmd, i) &&
