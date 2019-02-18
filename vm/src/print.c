@@ -34,6 +34,6 @@ void	ft_print_memory(unsigned char *mem, unsigned char *colors, size_t size)
 		ft_putchar((*mem & 0xf) + ((*mem & 0xf) > 9 ? 'A' - 10 : '0'));
 		ft_putchar(' ');
 		mem++;
-		(!((i + 1) % 32)) ? ft_putendl("") : (void)0;
+		(!((i + 1) % 64)) ? ft_putendl("") : (void)0;
 	}
 }

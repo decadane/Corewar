@@ -21,8 +21,7 @@ void	cmd_and(t_vm *arena, t_process *proc)
 
 	if (!(proc->op_arg >> 6) ||
 		!((proc->op_arg >> 4) & 0x3) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	shift = 2;
 	value1 = cmd_get_int(arena, proc, (proc->op_arg >> 6), &shift);
@@ -48,8 +47,7 @@ void	cmd_or(t_vm *arena, t_process *proc)
 
 	if (!(proc->op_arg >> 6) ||
 		!((proc->op_arg >> 4) & 0x3) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	shift = 2;
 	value1 = cmd_get_int(arena, proc, (proc->op_arg >> 6), &shift);
@@ -75,8 +73,7 @@ void	cmd_xor(t_vm *arena, t_process *proc)
 
 	if (!(proc->op_arg >> 6) ||
 		!((proc->op_arg >> 4) & 0x3) ||
-		(((proc->op_arg >> 2) & 0x3) != A_REG) ||
-		((proc->op_arg) & 0x3))
+		(((proc->op_arg >> 2) & 0x3) != A_REG))
 		return (wrong_argument(proc));
 	shift = 2;
 	value1 = cmd_get_int(arena, proc, (proc->op_arg >> 6), &shift);

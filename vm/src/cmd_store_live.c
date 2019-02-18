@@ -29,7 +29,7 @@ void	cmd_live(t_vm *arena, t_process *proc)
 			i = 0;
 			while ((arena->players)[i]->id != arena->cur_win_id)
 				i++;
-			ft_printf("A process shows that player %d (%s) is alive\n",
+			printf("A process shows that player %d (%s) is alive\n",
 				arena->cur_win_id, (arena->players)[i]->name);
 		}
 	}
@@ -42,7 +42,7 @@ void	cmd_st(t_vm *arena, t_process *proc)
 	short	value;
 
 	if (((proc->op_arg >> 6) != A_REG) || (((proc->op_arg >> 4) & 0x3) == A_DIR)
-		|| (!((proc->op_arg >> 4) & 0x3)) || ((proc->op_arg & 0xf)))
+		|| (!((proc->op_arg >> 4) & 0x3)))
 		return (wrong_argument(proc));
 	from = cmd_get_data(arena->map, proc->pc + 2, 1);
 	if ((from <= 0) || (from > REG_NUMBER))
@@ -72,7 +72,7 @@ void	cmd_sti(t_vm *arena, t_process *proc)
 
 	if (((proc->op_arg >> 6) != A_REG) || !((proc->op_arg >> 4) & 0x3)
 		|| !((proc->op_arg >> 2) & 0x3) || (((proc->op_arg >> 2) &
-		0x3) == A_IND) || ((proc->op_arg) & 0x3))
+		0x3) == A_IND))
 		return (wrong_argument(proc));
 	shift = 3;
 	reg = cmd_get_data(arena->map, proc->pc + 2, 1);
