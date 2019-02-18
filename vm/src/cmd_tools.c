@@ -44,7 +44,27 @@ void	init_commands_array(t_vm *arena)
 	arena->f_com[15] = cmd_aff;
 }
 
-void	wrong_argument(t_process *process)
+void	wrong_argument(t_process *proc)
 {
-	process->pc = (process->pc + 1) % MEM_SIZE;
+	int shift;
+	int a;
+	int b;
+
+	a = proc->op_arg;
+	shift = 2;
+	shift += (((a >> 6) == 1) + ((a >> 6) == 2) * (((proc->op == 10) ||
+		(proc->op == 11) || (proc->op == 14)) ? 2 : 4) + ((a >> 6) == 3) * 2);
+	if (proc->op != 16)
+	{
+		b = ((a >> 4) & 0x3);
+		shift += ((b == 1) + (b == 2) * (((proc->op == 10) || (proc->op == 11)
+			|| (proc->op == 14)) ? 2 : 4) + (b == 3) * 2);
+		if ((proc->op != 2) && (proc->op != 3) && (proc->op != 13))
+		{
+			b = ((a >> 2) & 0x3);
+			shift += ((b == 1) + (b == 2) * (((proc->op == 10) ||
+				(proc->op == 11) || (proc->op == 14)) ? 2 : 4) + (b == 3) * 2);
+		}
+	}
+	proc->pc = (proc->pc + shift) % MEM_SIZE;
 }

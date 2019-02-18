@@ -23,6 +23,7 @@ void	get_command(t_vm *arena, t_process *proc)
 	if ((arena->map)[place] < 1 || (arena->map)[place] > 16)
 	{
 		proc->pc = (proc->pc + 1) % MEM_SIZE;
+		proc->op = 0;
 		return ;
 	}
 	proc->op = (arena->map)[place];
@@ -41,7 +42,7 @@ void	new_cycle(t_vm *arena)
 		cur_proc = (t_process*)(procs->content);
 		if (!(cur_proc->cycles_to_act))
 			get_command(arena, cur_proc);
-		else
+		if (cur_proc->op)
 		{
 			cur_proc->cycles_to_act--;
 			if (!(cur_proc->cycles_to_act))
