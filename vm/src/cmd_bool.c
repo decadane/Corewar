@@ -34,7 +34,7 @@ void	cmd_and(t_vm *arena, t_process *proc)
 	if ((reg <= 0) || (reg > REG_NUMBER))
 		return (wrong_argument(proc));
 	proc->registry[reg - 1] = value1 & value2;
-	proc->carry = !(proc->registry[reg - 1]);
+	proc->carry = (!(proc->registry[reg - 1]));
 	proc->pc = (unsigned short)((proc->pc + shift + 1) % MEM_SIZE);
 }
 

@@ -20,6 +20,8 @@ void	cmd_zjmp(t_vm *arena, t_process *proc)
 	value %= IDX_MOD;
 	if (proc->carry)
 		proc->pc = (proc->pc + value) % MEM_SIZE;
+	else
+		proc->pc = (proc->pc + 3) % MEM_SIZE;
 }
 
 void	cmd_fork(t_vm *arena, t_process *proc)

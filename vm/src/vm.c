@@ -19,7 +19,7 @@ void		announce_the_winner(t_vm *arena, t_player **players)
 	i = 0;
 	while (players[i]->id != arena->cur_win_id)
 		i++;
-	printf("Contestant %d, \"%s\", has won !\n", players[i]->id,
+	ft_printf("Contestant %d, \"%s\", has won !\n", players[i]->id,
 		players[i]->name);
 }
 

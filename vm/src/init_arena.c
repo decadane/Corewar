@@ -51,7 +51,7 @@ t_list		*players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 
 	id = 1;
 	procs = NULL;
-	printf("Introducing contestants...\n");
+	ft_printf("Introducing contestants...\n");
 	while (id <= num_of_pl)
 	{
 		i = 0;
@@ -60,7 +60,7 @@ t_list		*players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)
 		start = &((arena->map)[players[i]->start_point]);
 		ft_memcpy(start, (players[i])->code, (players[i])->prog_size);
 		add_process(&procs, players[i], 0, 0);
-		printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id,
+		ft_printf("* Player %d, weighting %d bytes, \"%s\" (\"%s\") !\n", id,
 			(players[i])->prog_size, (players[i])->name, (players[i])->comment);
 		id++;
 	}
