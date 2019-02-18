@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:13:04 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 13:30:56 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 14:57:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void			ft_process_to_bytecode(t_list *lst, t_collect *col)
 	while (lst)
 	{
 		cmd = (t_cmd*)lst->content;
-		ft_convert_to_string(col->bot_code, cmd, &i);
+		if (cmd->opcode != 0)
+			ft_convert_to_string(col->bot_code, cmd, &i);
 		lst = lst->next;
 	}
 }
