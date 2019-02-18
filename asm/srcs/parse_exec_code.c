@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:08:50 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 19:21:02 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 19:37:27 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,13 @@ t_list			*ft_parse_exec_code(int fd)
 	t_list	*lst;
 	t_list	*tmp;
 	t_cmd	*cmd_tmp;
+	char	*c;
 
 	lst = NULL;
 	while (get_next_line(fd, &str))
 	{
+		if ((c = ft_strchr(str, COMMENT_CHAR)))
+			*c = '\0';
 		if (!ft_check_comment(str) && (cmd_tmp = ft_parse_line(str)))
 		{
 			tmp = ft_lstnew(cmd_tmp, sizeof(t_cmd));
