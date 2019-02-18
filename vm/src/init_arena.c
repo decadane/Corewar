@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:09:02 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 14:52:52 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:50:19 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void		add_process(t_list **procs, t_player *player, t_process *parent,
 	new->last_live = parent ? parent->last_live : 0;
 	new->pc = parent ? (parent->pc + place) : player->start_point;
 	new->cycles_to_act = 0;
+	new->op_clr = player->id;
 	res = (t_list*)malloc(sizeof(t_list));
 	res->content = new;
 	res->content_size = sizeof(t_process);
 	res->next = 0x0;
-	ft_lstradd(procs, res);
+	ft_lstadd(procs, res);
 }
 
 t_list		*players_go_to_arena(t_vm *arena, t_player **players, int num_of_pl)

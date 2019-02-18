@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 03:06:27 by trhogoro          #+#    #+#             */
-/*   Updated: 2019/02/18 16:03:53 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/18 17:19:05 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	cmd_live(t_vm *arena, t_process *proc)
 
 	value = cmd_get_data(arena->map, proc->pc + 1, 4);
 	proc->pc += 5;
+	proc->last_live = arena->cycles_passed;
 	if ((-value > 0) && (-value <= arena->num_of_players))
 	{
-		proc->last_live = arena->cycles_passed;
 		arena->cur_win_id = (short)-value;
 		arena->lives_per_cycle += 1;
 		if (arena->aff)
