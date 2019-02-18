@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 19:19:39 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 21:19:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_list				*ft_collect_labels(t_list *lst);
 void				ft_process_to_bytecode(t_list *lst, t_collect *col);
 unsigned			ft_find_result_len(t_list *lst);
 void				ft_get_bot_code(int fd, t_collect *col);
-char				*ft_label_or_cmd(t_cmd *cmd);
+char				*ft_label_or_cmd(t_cmd *cmd, char str);
 
 t_list				*ft_process_lst(t_list *lst, t_list *lables, int i);
 int					ft_check_endl(char *str);

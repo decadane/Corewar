@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:31:06 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 19:20:49 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 21:19:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ unsigned	ft_find_result_len(t_list *lst)
 	return (res);
 }
 
-char		*ft_label_or_cmd(t_cmd *cmd)
+char		*ft_label_or_cmd(t_cmd *cmd, char str)
 {
-	if (cmd->label)
+	if (cmd->label && !str)
 		cmd->size = 0;
 	else
 		ft_error_output("Error command without arguments");
