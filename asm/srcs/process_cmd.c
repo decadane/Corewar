@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 14:56:00 by marvin            #+#    #+#             */
-/*   Updated: 2019/02/18 17:16:01 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/18 18:36:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ static void		ft_parse_arg(t_cmd *cmd, int i)
 	while (*command == ' ' || *command == '\t')
 		command++;
 	if (*command == 'r' || *command == DIRECT_CHAR)
+	{
+		if (*command == 'r' && (ft_atoi(command + 1) == 0 ||
+					ft_atoi(command + 1) > REG_NUMBER))
+			ft_error_output("Error reg number");
 		command++;
+	}
 	if (*command == LABEL_CHAR)
 		return ;
 	j = *command == '-' ? 1 : 0;
@@ -58,7 +63,7 @@ static void		ft_first_process_cmd(t_cmd *cmd)
 	ft_init_args_array(cmds);
 	ft_init_nums_array(cmds_num);
 	while (i < 3)
-	{
+/*	{
 		if (cmd->args[i] && ft_check_arg_type(cmd, i) &&
 				i <= cmds_num[cmd->opcode - 1])
 			ft_parse_arg(cmd, i);
@@ -66,6 +71,20 @@ static void		ft_first_process_cmd(t_cmd *cmd)
 			ft_error_output("Error arg type is forbidden");
 		else
 			cmd->codage <<= 2;
+		i++;
+	}*/
+	{
+		if (i + 1 <= cmds_num[cmd->opcode - 1] && cmd->args[i])
+		{
+			if (ft_check_arg_type(cmd, i))
+				ft_parse_arg(cmd, i);
+			else
+				ft_error_output("Error arg type is forbidden");
+		}
+		else if (i + 1 > cmds_num[cmd->opcode - 1] && !cmd->args[i])
+			cmd->codage <<= 2;
+		else
+			ft_error_output("Error num of args");
 		i++;
 	}
 }
