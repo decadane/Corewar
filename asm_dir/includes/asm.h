@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:20:07 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/18 21:31:50 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/19 13:34:14 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <errno.h>
 # include "libft.h"
 # include "op.h"
+
+# define USAGE "Usage: ./asm champion1.s [champion2.s] [...]"
 
 extern unsigned		g_line_number;
 

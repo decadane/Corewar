@@ -6,7 +6,7 @@
 /*   By: ffahey <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:20:41 by ffahey            #+#    #+#             */
-/*   Updated: 2019/02/15 18:06:56 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/19 13:39:19 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ char	*ft_check_filename(char *str)
 	if (str)
 	{
 		if (!(dot = ft_strrchr(str, '.')) || ft_strcmp(dot, ".s"))
-			ft_error_output("Wrong file");
+		{
+			ft_putstr("Invalid filename: ");
+			ft_putendl(str);
+			exit(0);
+		}
 		filename = ft_strsub(str, 0, dot - str);
 	}
 	return (filename);
