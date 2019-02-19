@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:28:44 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/19 11:51:21 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 11:54:32 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_print_stat(t_vm *arena)
 {
 	int	i;
 
+	write(1, "\033[0m", 4);
 	ft_putstr("\n\n---------------");
 	ft_printf("\nTotal cycles passed: %d\n", arena->cycles_passed);
 	ft_printf("Maximum processes run %d\n", arena->max_procs);
