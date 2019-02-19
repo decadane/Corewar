@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/19 11:55:53 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 12:11:10 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		start_the_game(t_vm *arena)
 	int				checks;
 
 	checks = 0;
-	while (arena->cycles_to_die > 0 && arena->procs && arena->dump)
+	while (arena->cycles_to_die > 0 && arena->procs)
 	{
 		arena->lives_per_cycle = 0;
 		cycl_count = arena->cycles_to_die + 1;
@@ -107,13 +107,14 @@ int		start_the_game(t_vm *arena)
 		{
 			new_cycle(arena);
 			arena->cycles_passed++;
-			arena->dump--;
+			printf("%d\n", arena->dump);
 			if (!arena->dump)
 			{
 				ft_print_memory(arena->map, arena->color_map, 4096);
 				free_arena(arena);
 				exit(0);
 			}
+			arena->dump--;
 		}
 		round_check(arena, &checks);
 	}
