@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/19 11:33:26 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 13:34:36 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_player	**welcome_champions(int ac, char **av, t_vm *arena)
 
 static int	print_usage(void)
 {
-	ft_putstr("Usage: ./corewar ");
+	ft_putstr("Usage: ./corewar [-s] ");
 	ft_putendl(USAGE);
 	return (0);
 }
