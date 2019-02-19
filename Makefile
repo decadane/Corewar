@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 11:09:53 by marvin            #+#    #+#              #
-#    Updated: 2019/02/19 11:30:58 by marvin           ###   ########.fr        #
+#    Updated: 2019/02/19 11:51:20 by ffahey           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,30 @@ OBJ_VM = $(patsubst *.c,*.o,$(wildcard vm/srcs/*.c))
 all: $(NAME)
 
 $(NAME): $(OBJ_VM) $(OBJ_ASM)
-	make -C asm_dir/
-	cp asm_dir/asm .
-	make -C vm_dir/
-	cp vm_dir/corewar .
+	@echo -n asm: Compiling .
+	@make -s -C asm_dir/
+	@echo -n .
+	@cp asm_dir/asm .
+	@echo -n .
+	@echo " \033[0;32mOK\033[0m"
+	@echo -n corewar: Compiling .
+	@make -s -C vm_dir/
+	@echo -n .
+	@cp vm_dir/corewar .
+	@echo -n .
+	@echo " \033[0;32mOK\033[0m"
 
 clean:
-	make clean -C asm_dir/
-	make clean -C vm_dir/
+	@make clean -s -C asm_dir/
+	@make clean -s -C vm_dir/
+	@echo Objects files deleted
 
 fclean:
-	make fclean -C asm_dir/
-	make fclean -C vm_dir/
-	rm -f corewar asm
+	@make fclean -s -C asm_dir/
+	@make fclean -s -C vm_dir/
+	@rm -f corewar asm
+	@echo asm deleted
+	@echo corvar deleted
 
 re: fclean all
 
