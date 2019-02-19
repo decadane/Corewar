@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 17:41:29 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 22:24:44 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 09:29:32 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "op.h"
 # include "libft.h"
 
+# include <stdio.h>
+# define C(a)	printf("check%d\n", a);
 # define MAGIC 0xf383ea00
 
 typedef struct	s_player

@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 21:39:59 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 10:44:17 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_player	**welcome_champions(int ac, char **av, t_vm *arena)
 	}
 	if (!(assign_id(res, arena->num_of_players)))
 		return (free_players(res) ? NULL : NULL);
-	return (res);
+	return (res[0] ? res : NULL);
 }
 
 static int	print_usage(void)
@@ -100,7 +100,7 @@ int			main(int ac, char **av)
 	arena->num_of_players = 0;
 	arena->s = 0;
 	if (!(players = welcome_champions(--ac, ++av, arena)))
-		return (1);
+		error2("No champions!\nUsage: ./corewar ", 0, USAGE);
 	if (!arena->num_of_players && free_players(players))
 		return (print_usage());
 	init_arena(arena, players);

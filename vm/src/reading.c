@@ -6,13 +6,13 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 21:13:25 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/18 22:06:05 by kcarrot          ###   ########.fr       */
+/*   Updated: 2019/02/19 10:42:55 by ffahey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	change_endian(void *a, int size)
+void		change_endian(void *a, int size)
 {
 	int				i;
 	unsigned long	b;
@@ -33,21 +33,28 @@ void	change_endian(void *a, int size)
 		src[size] = dest[size];
 }
 
-int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
+static void	read_n_opt(char ***av, int *id, t_player **player)
+{
+	if (*(*av + 1))
+	{
+		(*av)++;
+		*id = ft_atoi(**av);
+	}
+	if (*id <= 0 || *id > MAX_PLAYERS || ***av < '0' || ***av > '9')
+		error("Error: invalid champion's number", 0);
+	while (*player)
+	{
+		if ((*player)->id == *id && player++)
+			error(ERR_NAMES, 0);
+		player++;
+	}
+}
+
+int			read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 {
 	arena->s = *(**av + 1) == 's' ? 1 : arena->s;
 	if (*(**av + 1) == 'n')
-	{
-		*id = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
-		if (*id <= 0 || *id > MAX_PLAYERS || ***av < '0' || ***av > '9')
-			return (error("Error: invalid champion's number", 0));
-		while (*player)
-		{
-			if ((*player)->id == *id && player++)
-				return (error(ERR_NAMES, 0));
-			player++;
-		}
-	}
+		read_n_opt(av, id, player);
 	else if (*(**av + 1) == 'a' || *(**av + 1) == 'v')
 	{
 		arena->aff = (*(**av + 1) == 'v') ? 0 : 1;
@@ -55,14 +62,18 @@ int		read_opt(char ***av, t_vm *arena, int *id, t_player **player)
 	}
 	else if (*(**av + 1) == 'd')
 	{
-		arena->dump = ++(*av) ? ft_atoi(**av) : ft_atoi(**av);
+		if (*(*av + 1))
+		{
+			(*av)++;
+			arena->dump = ft_atoi(**av);
+		}
 		if (arena->dump < 0 || ***av < '0' || ***av > '9')
-			return (error("Error: invalid dump", 0));
+			error("Error: invalid dump", 0);
 	}
 	return (1);
 }
 
-int		read_champion_header(char *av, t_player **player, int fd)
+int			read_champion_header(char *av, t_player **player, int fd)
 {
 	unsigned int	magic;
 	t_player		*new_pl;
@@ -85,7 +96,7 @@ int		read_champion_header(char *av, t_player **player, int fd)
 	return (1);
 }
 
-int		read_champion(char *av, t_player **player, int *id, t_vm *arena)
+int			read_champion(char *av, t_player **player, int *id, t_vm *arena)
 {
 	int				fd;
 	int				i;
