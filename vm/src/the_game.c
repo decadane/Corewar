@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 16:35:40 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/19 09:35:45 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/19 11:34:02 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		start_the_game(t_vm *arena)
 		{
 			new_cycle(arena);
 			arena->cycles_passed++;
+			arena->dump--;
 			if (!arena->dump)
 			{
 				ft_print_memory(arena->map, arena->color_map, 4096);

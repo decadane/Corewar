@@ -6,7 +6,7 @@
 /*   By: kcarrot <kcarrot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:00:32 by kcarrot           #+#    #+#             */
-/*   Updated: 2019/02/19 10:44:17 by ffahey           ###   ########.fr       */
+/*   Updated: 2019/02/19 11:33:26 by kcarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ int			assign_id(t_player **player, int num)
 	{
 		j = 0;
 		while (player[j])
+		{
 			if (player[j++]->id == id)
 			{
 				id++;
 				continue ;
 			}
+		}
 		if ((player[i]->id) > num)
 			return (error(ERR_WRONG_NUM, ft_itoa(num)));
 		if (!(player[i]->id))
@@ -57,7 +59,7 @@ t_player	**welcome_champions(int ac, char **av, t_vm *arena)
 
 	id = 0;
 	res = (t_player**)malloc(sizeof(t_player*) * (MAX_PLAYERS + 1));
-	while (id < MAX_PLAYERS)
+	while (id <= MAX_PLAYERS)
 		res[id++] = NULL;
 	id = 0;
 	while (ac--)
