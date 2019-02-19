@@ -6,7 +6,7 @@
 #    By: marvin <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 11:09:53 by marvin            #+#    #+#              #
-#    Updated: 2019/02/19 11:51:20 by ffahey           ###   ########.fr        #
+#    Updated: 2019/02/19 14:00:33 by ffahey           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ fclean:
 	@make fclean -s -C vm_dir/
 	@rm -f corewar asm
 	@echo asm deleted
-	@echo corvar deleted
+	@echo corewar deleted
 
 re: fclean all
 
